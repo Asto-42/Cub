@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 14:31:04 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/07 11:20:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_vars	initialise_var(t_vars *vars)
 	vars->win = NULL;
 	vars->pos_p.rad = 0;
 	vars->pi = M_PI;
+	// vars->f = 220,100,0; //conv char to int avec une somme a faire
+	// vars->c = 225,30,0;
 	return (*vars);
 }
 
@@ -102,7 +104,7 @@ void	ft_game(char *file)
 		ft_clear_mlx(&vars);
 	vars.nb_line_map = ft_nb_line(vars.map);
 	vars.size_line = ft_size_line(vars.map, vars.nb_line_map);
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "The adventure of Pjay vol.2");
+	vars.win = mlx_new_window(vars.mlx, 1080, 720, "The adventure of Pjay vol.2");
 	if (vars.win == NULL)
 		ft_clear_mlx(&vars);
 	define_pos_player(&vars);

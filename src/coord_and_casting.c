@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/30 15:00:21 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/07 11:22:10 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,23 @@ int	next_y(t_vars *vars, int y, int x)
 
 void	print_ground_and_roof(t_vars *vars)
 {
-	(void)vars;
+	int	x;
+	int	y;
+
+	x = -1;
+	y = -1;
+	while (++y <= 360)
+	{
+		while (++x <= 1080)
+			mlx_pixel_put(vars->mlx, vars->win, x, y, 320); //conv char to int avec une somme a faire
+		x = -1;
+	}
+	while (++y <= 720)
+	{
+		while (++x < 1080)
+			mlx_pixel_put(vars->mlx, vars->win, x, y, 255);
+		x = -1;
+	}
 }
 
 float	fc_pythagore(float a, float b)

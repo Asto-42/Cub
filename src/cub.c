@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/03 14:51:50 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/07 12:39:15 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_clear_mlx(t_vars *vars)
 			mlx_destroy_window(vars->mlx, vars->win);
 		if (vars->map)
 			free_map(vars->map);
+		if (vars->size_line)
+			free(vars->size_line);
 		mlx_destroy_display(vars->mlx);
 		free(vars->mlx);
 	}

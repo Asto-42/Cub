@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/10/27 13:46:58 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/07 11:06:22 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_vars {
 	void				*win;
 	char				**map;
 	void				*img;
+	int					f;
+	int					c;
 	int					nb_line_map;
 	int					*size_line;
 	long double			pi;
