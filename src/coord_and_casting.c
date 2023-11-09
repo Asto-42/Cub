@@ -6,30 +6,42 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 12:09:02 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 14:26:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	next_x(t_vars *vars, int x, int y)
+int	next_x(t_vars *vars, int x, int y, t_vector vec)
 {
-	while (x >= 0)
+	int	param;
+
+	while (x >= 0 && param >= 0)
 	{
-		if (vars->map[y][x] == 1)
+		param = roundf(x - vec.x);
+		if (param < 0 || param > vars->size_line[y])
+			break ;
+		if (vars->map[y][param] == 1)
 			return (x);
-		x--;
+		vec.x += 1;
 	}
 	return (0);
 }
 
-int	next_y(t_vars *vars, int y, int x)
+int	next_y(t_vars *vars, int y, int x, t_vector vec)
 {
-	while (y >= 0)
+	int	param;
+
+	while (y >= 0 && param >= 0)
 	{
-		if (vars->map[y][x] == 1)
+		param = roundf(y - vec.y);
+		if (param > 0 || param > vars->nb_line_map)
+			break ;
+		// printf("param = %i\n", param);
+		// printf("map = %c\n", vars->map[param][x]);
+		if (vars->map[param][x] == 1)
 			return (y);
-		y--;
+		vec.y += 1;
 	}
 	return (0);
 }
@@ -63,6 +75,7 @@ float	fc_pythagore(float a, float b)
 {
 	float	res;
 
+	printf("a = %f\tb = %f\n", a, b);
 	res = a + b;
 	res = pow(res , (1/2));
 	return (res);
@@ -86,10 +99,15 @@ void	ft_ray_casting(t_vars *vars)
 		{
 			vec.x = cos(vars->pos_p.rad);
 			vec.y = sin(vars->pos_p.rad);
-			l_y = vec.y * next_y(vars, vars->pos_p.y, vars->pos_p.x);
-			l_x = vec.x * next_x(vars, vars->pos_p.x, vars->pos_p.y); //next_x et next_y a rework, non fonctionnel
+			printf("vec.x = %f\tvec.y = %f\n", vec.x, vec.y);
+			l_y = vec.y * next_y(vars, vars->pos_p.y, vars->pos_p.x, vec);
+			printf("l.y = %f\n", l_y);
+			l_x = vec.x * next_x(vars, vars->pos_p.x, vars->pos_p.y, vec); //next_x et next_y a rework, non fonctionnel
+			printf("l_x = %f\n", l_x);
 			dist = fc_pythagore(l_y, l_x);
 			dist = fc_pythagore((dist * dist), (h * h));
+			printf("dist = %f\n", dist);
+			usleep(1000000);
 			//printf("dist = %f\n", dist);
 			// mlx_put_pixel_to_window -> 1 / dist
 			//mlx_put_image_to_window(vars->mlx, vars->win, *img_ptr, x, y);
