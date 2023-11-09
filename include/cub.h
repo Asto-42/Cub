@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/07 11:06:22 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 13:40:41 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,25 @@ typedef struct s_vars {
 	void				*win;
 	char				**map;
 	void				*img;
-	int					f;
-	int					c;
 	int					nb_line_map;
 	int					*size_line;
 	long double			pi;
 	t_pasp				pos_p;
+	//t_img				img;
 }						t_vars;
 
 typedef struct s_img {
-	void	*p_s;
+	void	*north_wall;
+	void	*south_wall;
+	void	*east_wall;
+	void	*west_wall;
+	void	*floor;
+	void	*roof;
 }				t_img;
 
 
 //---- Parsing ---//
+
 int		ft_extract_map_for_parse(char *file);
 int		ft_keymove(int keycode, t_vars *vars);
 int		ft_nb_line(char **map);

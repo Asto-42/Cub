@@ -1,7 +1,7 @@
-NO ./texture/north_wall.xpm
-SO ./texture/south_wall.xpm
-WE ./texture/east_wall.xpm
-EA ./texture/west_wall.xpm
+NO ./texture_for_cub/brick.xpm
+SO ./texture_for_cub/metal.xpm
+WE ./texture_for_cub/sheika.xpm
+EA ./texture_for_cub/triforce.xpm
 
 F 220,100,0
 C 225,30,0

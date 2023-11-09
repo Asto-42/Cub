@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/07 11:20:37 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 13:43:31 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	ft_keymove(int keycode, t_vars *vars)
 {
-	(void)vars;
 	if (keycode == 65307)
 		ft_clear_mlx(vars);
 	printf("Keycode = %i\n", keycode);
+
 			// deplacement //
+	// 119 = W | 115 = S | 100 = D | 97 = A | gerer WA, WD, SD, SA ? -> pas mandatory mais facile
 	// if (keycode == 119)
 	// 	vars->map = ft_rework_map_move(vars->map, "up", vars);
 	// if (keycode == 115)
@@ -27,9 +28,12 @@ int	ft_keymove(int keycode, t_vars *vars)
 	// 	vars->map = ft_rework_map_move(vars->map, "right", vars);
 	// if (keycode == 97)
 	// 	vars->map = ft_rework_map_move(vars->map, "left", vars);
+
 			// rotate pov //
-	//if (keycode == 101) -> E -> rotate right
-	//if (keycode == 113) -> Q -> rotate left
+	if (keycode == 101)
+		vars->pos_p.rad += 10;
+	if (keycode == 113)
+		vars->pos_p.rad += -10;
 	return (1);
 }
 
@@ -38,13 +42,21 @@ int	ft_key_hook(t_vars *vars)
 	ft_clear_mlx(vars);
 	return (1);
 }
+
 t_vars	initialise_var(t_vars *vars)
 {
-	vars->win = NULL;
+	int		img_width;
+	int		img_height;
+	t_img	*img;
+
+	img = malloc(sizeof(t_img));
 	vars->pos_p.rad = 0;
 	vars->pi = M_PI;
-	// vars->f = 220,100,0; //conv char to int avec une somme a faire
-	// vars->c = 225,30,0;
+	img->north_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/brick.xpm", &img_width, &img_height);
+	img->south_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/metal.xpm", &img_width, &img_height);
+	img->east_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/sheika.xpm", &img_width, &img_height);
+	img->west_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/triforce.xpm", &img_width, &img_height);
+	vars->img = &img;
 	return (*vars);
 }
 

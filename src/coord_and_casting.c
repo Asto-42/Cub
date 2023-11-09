@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/07 11:22:10 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 12:09:02 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ void	print_ground_and_roof(t_vars *vars)
 {
 	int	x;
 	int	y;
+	//unsigned int	color;
 
 	x = -1;
 	y = -1;
+	// color = mlx_get_color_value(vars->mlx, 2);
+	// color += mlx_get_color_value(vars->mlx, 10);
+	// color += mlx_get_color_value(vars->mlx, 300);
 	while (++y <= 360)
 	{
 		while (++x <= 1080)
-			mlx_pixel_put(vars->mlx, vars->win, x, y, 320); //conv char to int avec une somme a faire
+			mlx_pixel_put(vars->mlx, vars->win, x, y, 720); //conv char to int avec une somme a faire
 		x = -1;
 	}
 	while (++y <= 720)
@@ -60,7 +64,7 @@ float	fc_pythagore(float a, float b)
 	float	res;
 
 	res = a + b;
-	//res = res ^ (1/2);
+	res = pow(res , (1/2));
 	return (res);
 }
 
@@ -83,12 +87,12 @@ void	ft_ray_casting(t_vars *vars)
 			vec.x = cos(vars->pos_p.rad);
 			vec.y = sin(vars->pos_p.rad);
 			l_y = vec.y * next_y(vars, vars->pos_p.y, vars->pos_p.x);
-			l_x = vec.x * next_x(vars, vars->pos_p.x, vars->pos_p.y);
+			l_x = vec.x * next_x(vars, vars->pos_p.x, vars->pos_p.y); //next_x et next_y a rework, non fonctionnel
 			dist = fc_pythagore(l_y, l_x);
 			dist = fc_pythagore((dist * dist), (h * h));
 			//printf("dist = %f\n", dist);
 			// mlx_put_pixel_to_window -> 1 / dist
-			// mlx_pixel_put(vars->mlx, vars->win, int x, int y, int color );
+			//mlx_put_image_to_window(vars->mlx, vars->win, *img_ptr, x, y);
 			dist = fc_pythagore(l_y, l_x);
 			dist = fc_pythagore((dist * dist), ((h + 1) * (h + 1)));
 			// mlx_put_pixel_to_windox -> 1 / dist
@@ -98,8 +102,6 @@ void	ft_ray_casting(t_vars *vars)
 		fov += 0.1;
 	}
 }
-//xpm file to image
-//put image to window
 
 void	define_pos_player(t_vars *vars)
 {
