@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 16:57:15 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 17:41:50 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,31 @@ float	fc_pythagore(float a, float b)
 	res = pow(res , (0.5));
 	return (res);
 }
+void	*create_img_for_print(t_vars *vars, t_vector vec, float dist)
+{
+	float	size_max_y;
+	float	size_max_x;
+
+	(void)vec;
+	size_max_x = 720 * (1 / dist);
+	size_max_y = 1080 * (1 / dist);
+	//get_data_addr for print pixel by pixel in img ?
+	//char *mlx_get_data_addr( void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
+	//print differentes image en fonction du fov
+	//print l'image a 1 / dist + cste
+}
 
 void	ft_ray_casting(t_vars *vars)
 {
-	float		h;
 	float		fov;
 	float		dist;
 	float		l_y;
 	float		l_x;
+	int			scale;
 	t_vector	vec;
 
+	scale = 0;
 	print_ground_and_roof(vars);
-	h = 1;
 	fov = vars->pos_p.rad - (vars->pi / 2);
 	while (fov <= (vars->pos_p.rad + (vars->pi / 2)))
 	{
@@ -107,10 +120,11 @@ void	ft_ray_casting(t_vars *vars)
 		else
 			l_x = 0;
 		dist = fc_pythagore(l_y, l_x);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img.east_wall, 0, 180);
-		// print differentes image en fonction du fov
-		// print l'image a 1 / dist + cste
+		// create l'img, dessiner dedans puis la print -> create_img_for_print
+		mlx_put_image_to_window(vars->mlx, vars->win, create_img_for_print(vars, vec, dist), scale, 180);
 		fov += 0.1;
+		scale += 64;
+		//scale usless, surement besoin d'use size_max_x et size_max_y dans le create img - print direct dans create_img ?
 	}
 }
 
