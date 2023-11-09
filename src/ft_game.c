@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 13:43:31 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 16:43:48 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ t_vars	initialise_var(t_vars *vars)
 	img = malloc(sizeof(t_img));
 	vars->pos_p.rad = 0;
 	vars->pi = M_PI;
+	vars->pos_p.sens = 1;
 	img->north_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/brick.xpm", &img_width, &img_height);
 	img->south_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/metal.xpm", &img_width, &img_height);
 	img->east_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/sheika.xpm", &img_width, &img_height);
 	img->west_wall = mlx_xpm_file_to_image(vars->mlx, "./texture_for_cub/triforce.xpm", &img_width, &img_height);
-	vars->img = &img;
+	vars->img = *img;
 	return (*vars);
 }
 

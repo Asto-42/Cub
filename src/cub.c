@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 11:02:42 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 14:43:15 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	main(int argc, char **argv, char **envp)
 	// 	printf("ERROR ARG\n");
 	// 	return (1);
 	// }
-	if (ft_extract_map_for_parse(argv[1]) == 0)
-	{
-		printf("ERROR MAP\n");
-		return (1);
-	}
+	// if (ft_extract_map_for_parse(argv[1]) == 0)
+	// {
+	// 	printf("ERROR MAP\n");
+	// 	return (1);
+	// }
 	ft_game(argv[1]);
 	return (0);
 }

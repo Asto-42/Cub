@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 13:40:41 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/09 16:37:32 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,6 @@ typedef struct pos_and_sens_player {
 	float			rad;
 }				t_pasp;
 
-typedef struct s_vars {
-	void				*mlx;
-	void				*win;
-	char				**map;
-	void				*img;
-	int					nb_line_map;
-	int					*size_line;
-	long double			pi;
-	t_pasp				pos_p;
-	//t_img				img;
-}						t_vars;
-
 typedef struct s_img {
 	void	*north_wall;
 	void	*south_wall;
@@ -67,6 +55,16 @@ typedef struct s_img {
 	void	*roof;
 }				t_img;
 
+typedef struct s_vars {
+	void				*mlx;
+	void				*win;
+	char				**map;
+	int					nb_line_map;
+	int					*size_line;
+	long double			pi;
+	t_pasp				pos_p;
+	t_img				img;
+}						t_vars;
 
 //---- Parsing ---//
 
