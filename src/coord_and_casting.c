@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/14 14:16:07 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/14 14:57:49 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist)
 	//define image en fonction de vec & fov
 	//
 
-	int *buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
-	line_bytes /= 4;
+	// int *buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
+	// line_bytes /= 4;
 
 	// int color = 0xABCDEF;
 
