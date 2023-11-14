@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 17:41:50 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/14 14:16:07 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,35 @@ float	fc_pythagore(float a, float b)
 	res = pow(res , (0.5));
 	return (res);
 }
-void	*create_img_for_print(t_vars *vars, t_vector vec, float dist)
+void	create_img_for_print(t_vars *vars, t_vector vec, float dist)
 {
 	float	size_max_y;
 	float	size_max_x;
 
 	(void)vec;
+	(void)vars;
 	size_max_x = 720 * (1 / dist);
 	size_max_y = 1080 * (1 / dist);
+	//define image en fonction de vec & fov
+	//
+
+	int *buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
+	line_bytes /= 4;
+
+	// int color = 0xABCDEF;
+
+	// for(int y = 0; y < 360; ++y)
+	// for(int x = 0; x < 640; ++x)
+	// {
+	// 	buffer[(y * line_bytes) + x] = color;
+	// }
+
+
 	//get_data_addr for print pixel by pixel in img ?
 	//char *mlx_get_data_addr( void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
 	//print differentes image en fonction du fov
 	//print l'image a 1 / dist + cste
+	//byte = (color >> 8) & 0xFF;
 }
 
 void	ft_ray_casting(t_vars *vars)
@@ -121,7 +138,9 @@ void	ft_ray_casting(t_vars *vars)
 			l_x = 0;
 		dist = fc_pythagore(l_y, l_x);
 		// create l'img, dessiner dedans puis la print -> create_img_for_print
-		mlx_put_image_to_window(vars->mlx, vars->win, create_img_for_print(vars, vec, dist), scale, 180);
+		// manque la data de la coordonnee a laquelle le rayon hit le wall, faisable ?
+		printf("dist = %f\nl_y = %f\nl_x = %f\nvec.y = %f\tvec.x = %f\n", dist, l_y, l_x, vec.y, vec.x);
+		//mlx_put_image_to_window(vars->mlx, vars->win, create_img_for_print(vars, vec, dist), scale, 180);
 		fov += 0.1;
 		scale += 64;
 		//scale usless, surement besoin d'use size_max_x et size_max_y dans le create img - print direct dans create_img ?
