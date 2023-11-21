@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/14 14:57:49 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/21 17:55:53 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,57 @@ int	next_x(t_vars *vars, int x, int y, t_vector vec)
 	while (x >= 0 && param >= 0)
 	{
 		param = roundf(x + vec.x);
-		// printf("param = %i\n", param);
-		// printf("map = %c\n", vars->map[y][param]);
 		if (param < 0 || param > vars->size_line[y])
 			break ;
 		if (vars->map[y][param] == '1')
-			return (param - x + 1);
-		vec.x += 1;
+		{
+			printf("next_x\ty = %i\tx = %i\n", y, param);
+			return (param - x);
+		}
+		vec.x += 0.1;
+	}
+	return (0);
+}
+
+int	next_x_2(t_vars *vars, int x, int y, t_vector vec)
+{
+	int	param;
+
+	while (x >= 0 && param >= 0)
+	{
+		param = roundf(x + vec.x);
+		if (param < 0 || param > vars->size_line[y])
+			break ;
+		if (vars->map[y][param] == '1')
+		{
+			printf("next_x\ty = %i\tx = %i\n", y, param);
+			return (param - x);
+		}
+		vec.x -= 0.1;
 	}
 	return (0);
 }
 
 int	next_y(t_vars *vars, int y, int x, t_vector vec)
+{
+	int	param;
+
+	while (y >= 0 || param >= 0)
+	{
+		param = roundf(y + vec.y);
+		if (param < 0 || param > vars->nb_line_map)
+			break ;
+		if (vars->map[param][x] == '1')
+		{
+			printf("next_y\ty = %i\tx = %i\n", param, x);
+			return (y - param);
+		}
+		vec.y -= 0.1;
+	}
+	return (0);
+}
+
+int	next_y_2(t_vars *vars, int y, int x, t_vector vec)
 {
 	int	param;
 
@@ -40,8 +79,11 @@ int	next_y(t_vars *vars, int y, int x, t_vector vec)
 		if (param < 0 || param > vars->nb_line_map)
 			break ;
 		if (vars->map[param][x] == '1')
+		{
+			printf("next_y\ty = %i\tx = %i\n", param, x);
 			return (y - param);
-		vec.y += 1;
+		}
+		vec.y += 0.1;
 	}
 	return (0);
 }
@@ -75,75 +117,81 @@ float	fc_pythagore(float a, float b)
 {
 	float	res;
 
-	// printf("a = %f\tb = %f\n", a, b);
 	res = a + b;
-	// printf("res = %f\n", res);
 	res = pow(res , (0.5));
 	return (res);
 }
 void	create_img_for_print(t_vars *vars, t_vector vec, float dist)
 {
-	float	size_max_y;
-	float	size_max_x;
+	int	size_max_y;
+	int	size_max_x;
 
 	(void)vec;
-	(void)vars;
 	size_max_x = 720 * (1 / dist);
 	size_max_y = 1080 * (1 / dist);
-	//define image en fonction de vec & fov
-	//
-
-	// int *buffer = mlx_get_data_addr(image, &pixel_bits, &line_bytes, &endian);
-	// line_bytes /= 4;
-
-	// int color = 0xABCDEF;
-
-	// for(int y = 0; y < 360; ++y)
-	// for(int x = 0; x < 640; ++x)
-	// {
-	// 	buffer[(y * line_bytes) + x] = color;
-	// }
-
-
-	//get_data_addr for print pixel by pixel in img ?
-	//char *mlx_get_data_addr( void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
-	//print differentes image en fonction du fov
-	//print l'image a 1 / dist + cste
-	//byte = (color >> 8) & 0xFF;
+	int pixel_bits;
+	int line_bytes;
+	int endian;
+	//char *buffer = malloc (size_max_x * size_max_y * 4 * sizeof (byte));
+	char *buffer = mlx_get_data_addr(vars->img.north_wall, &pixel_bits, &line_bytes, &endian);
+	//printf("%s\n", mlx_get_data_addr(vars->img.north_wall, &pixel_bits, &line_bytes, &endian));
+	int color = 0xABCDEF;
+	//printf("pixel_bits = %i\nendian = %i\n", pixel_bits, endian);
+	if (pixel_bits != 32)
+		color = mlx_get_color_value(vars->img.east_wall, color);
+	int	y;
+	int	x;
+	y = -1;
+	x = -1;
+	while (++y < size_max_y)
+	{
+		while (++x < size_max_x)
+		{
+			if (endian == 1)		// Most significant (Alpha) byte first
+			{
+				buffer[(y * line_bytes) + (x * 4)] = (color >> 24); // pixel 0
+				buffer[(y * line_bytes) + (x * 4)] = (color >> 16) & 0xFF; // pixel 1
+				buffer[(y * line_bytes) + (x * 4)] = (color >> 8) & 0xFF; // pixel 2
+				buffer[(y * line_bytes) + (x * 4)] = (color) & 0xFF; // pixel 4
+			}
+			//printf("size_max_y = %i\tsize_max_x = %i\nY = %i\tX = %i\n", size_max_y, size_max_x, y, x);
+		}
+		x = -1;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, &buffer, 0, 0);
 }
 
 void	ft_ray_casting(t_vars *vars)
 {
 	float		fov;
 	float		dist;
-	float		l_y;
-	float		l_x;
-	int			scale;
+	float		l_y = 0;
+	float		l_x = 0;
 	t_vector	vec;
 
-	scale = 0;
 	print_ground_and_roof(vars);
 	fov = vars->pos_p.rad - (vars->pi / 2);
 	while (fov <= (vars->pos_p.rad + (vars->pi / 2)))
 	{
 		vec.x = cos(fov);
 		vec.y = sin(fov);
-		if (vec.y < -0.01 || vec.y > 0.01)
-			l_y = (vars->pos_p.y - next_y(vars, vars->pos_p.y, vars->pos_p.x, vec));
+		printf("pos_x = %f\tpos_y = %f\nfov = %f\nvec.y = %f\tvec.x = %f\nx^2 + y^2 = %f\n",vars->pos_p.x, vars->pos_p.y, fov,  vec.y, vec.x, vec.x*vec.x + vec.y*vec.y);
+		if (vec.y > 0 && vec.y > 0.01)
+			l_y = (next_y(vars, vars->pos_p.y, vars->pos_p.x, vec));
+		else if (vec.y < 0 && vec.y < -0.01)
+			l_y = (next_y_2(vars, vars->pos_p.y, vars->pos_p.x, vec));
 		else
 			l_y = 0;
-		if (vec.x < -0.01 || vec.x > 0.01)
-			l_x = (vars->pos_p.x + next_x(vars, vars->pos_p.x, vars->pos_p.y, vec));
+		if (vec.x > 0 && vec.x > 0.01)
+			l_x = (next_x(vars, vars->pos_p.x, vars->pos_p.y, vec) - 1);
+		else if (vec.x < 0 && vec.x < -0.01)
+			l_x = (next_x_2(vars, vars->pos_p.x, vars->pos_p.y, vec) - 1);
 		else
 			l_x = 0;
-		dist = fc_pythagore(l_y, l_x);
-		// create l'img, dessiner dedans puis la print -> create_img_for_print
-		// manque la data de la coordonnee a laquelle le rayon hit le wall, faisable ?
-		printf("dist = %f\nl_y = %f\nl_x = %f\nvec.y = %f\tvec.x = %f\n", dist, l_y, l_x, vec.y, vec.x);
-		//mlx_put_image_to_window(vars->mlx, vars->win, create_img_for_print(vars, vec, dist), scale, 180);
-		fov += 0.1;
-		scale += 64;
-		//scale usless, surement besoin d'use size_max_x et size_max_y dans le create img - print direct dans create_img ?
+		dist = fc_pythagore(l_y * l_y, l_x * l_x);
+		printf("l_y = %f\nl_x = %f\ndist = %f\n\n", l_y, l_x, dist);
+		//create_img_for_print(vars, vec, dist);
+		fov += vars->pi / 18;
 	}
 }
 

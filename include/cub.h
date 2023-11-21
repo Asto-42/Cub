@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/10 11:15:36 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/21 16:57:11 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct vector {
 }	t_vector;
 
 typedef struct pos_and_sens_player {
-	float			x;
-	float			y;
+	double			x;
+	double			y;
 	char			sens;
 	float			rad;
 }				t_pasp;

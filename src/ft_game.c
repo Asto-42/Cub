@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/09 16:43:48 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/16 17:02:45 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,3 @@ void	ft_game(char *file)
 	//mlx_hook(vars.win, 6, 1L << 0, ft_keymove, &vars); -> mouvement de souris ?
 	mlx_loop(vars.mlx);
 }
-
-//int mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color )
