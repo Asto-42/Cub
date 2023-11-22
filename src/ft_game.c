@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/16 17:02:45 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/21 18:12:40 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_game(char *file)
 	if (vars.win == NULL)
 		ft_clear_mlx(&vars);
 	define_pos_player(&vars);
-	ft_ray_casting(&vars);
+	ft_ray_casting_rework(&vars);
 	mlx_hook(vars.win, 17, 0, ft_key_hook, &vars);
 	mlx_hook(vars.win, 2, 1L << 0, ft_keymove, &vars);
 	//mlx_hook(vars.win, 6, 1L << 0, ft_keymove, &vars); -> mouvement de souris ?

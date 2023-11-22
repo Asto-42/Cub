@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/21 16:57:11 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/21 18:14:21 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		ft_keymove(int keycode, t_vars *vars);
 int		ft_nb_line(char **map);
 int		*ft_size_line(char **map, int nb_line);
 void	ft_ray_casting(t_vars *vars);
+void	ft_ray_casting_rework(t_vars *vars);
 void	define_pos_player(t_vars *vars);
 int		ft_nb_line_empty(char *file);
 void	free_map(char **map);

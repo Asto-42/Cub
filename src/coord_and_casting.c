@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/21 17:55:53 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/21 18:31:26 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,33 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist)
 	mlx_put_image_to_window(vars->mlx, vars->win, &buffer, 0, 0);
 }
 
+void	ft_ray_casting_rework(t_vars *vars)
+{
+	float	fov;
+	float	dist;
+	t_vector	vec;
+
+	print_ground_and_roof(vars);
+	fov = vars->pos_p.rad - (vars->pi / 2);
+	while (fov <= vars->pos_p.rad + (vars->pi / 2))
+	{
+		vec.x = cos(fov);
+		vec.y = sin(fov);
+		while ((int)roundf(vars->pos_p.x + vec.x) <= vars->size_line[(int)vars->pos_p.y])
+		{
+			if (vars->map[(int)(vars->pos_p.y + vec.y)][(int)(vars->pos_p.x + vec.x)] == '1')
+				break ;
+			if (vec.y > 0.1)
+				vec.y += 0.1;
+			if (vec.x > 0.1)
+				vec.x += 0.1;
+		}
+		dist = fc_pythagore(vec.y * vec.y, vec.x * vec.x);
+		create_img_for_print(vars, vec, dist);
+		fov += vars->pi / 18;
+	}
+}
+
 void	ft_ray_casting(t_vars *vars)
 {
 	float		fov;
@@ -176,12 +203,12 @@ void	ft_ray_casting(t_vars *vars)
 		vec.x = cos(fov);
 		vec.y = sin(fov);
 		printf("pos_x = %f\tpos_y = %f\nfov = %f\nvec.y = %f\tvec.x = %f\nx^2 + y^2 = %f\n",vars->pos_p.x, vars->pos_p.y, fov,  vec.y, vec.x, vec.x*vec.x + vec.y*vec.y);
-		if (vec.y > 0 && vec.y > 0.01)
-			l_y = (next_y(vars, vars->pos_p.y, vars->pos_p.x, vec));
-		else if (vec.y < 0 && vec.y < -0.01)
-			l_y = (next_y_2(vars, vars->pos_p.y, vars->pos_p.x, vec));
-		else
-			l_y = 0;
+		// if (vec.y > 0 && vec.y > 0.01)
+		// 	l_y = (next_y(vars, vars->pos_p.y, vars->pos_p.x, vec));
+		// else if (vec.y < 0 && vec.y < -0.01)
+		// 	l_y = (next_y_2(vars, vars->pos_p.y, vars->pos_p.x, vec));
+		// else
+		// 	l_y = 0;
 		if (vec.x > 0 && vec.x > 0.01)
 			l_x = (next_x(vars, vars->pos_p.x, vars->pos_p.y, vec) - 1);
 		else if (vec.x < 0 && vec.x < -0.01)
