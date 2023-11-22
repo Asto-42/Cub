@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/16 15:53:21 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/22 14:05:07 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,14 @@ int	main(int argc, char **argv, char **envp)
 	// }
 	ft_game(argv[1]);
 	return (0);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	t_vars	game;
+	if (ac != 2 || !av || !envp || !valid_parsing(av[1]))
+		return (printf("Error\nFichier de description invalide\n"), 0);
+	if (!init_game(&game, av[1]))
+		return (0);
+	
 }
