@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/22 15:19:47 by jquil            ###   ########.fr       */
+/*   Updated: 2023/11/22 21:24:42 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ typedef struct s_img
 	void		*south_wall;
 	void		*east_wall;
 	void		*west_wall;
-	void		*floor;
-	void		*roof;
-	int			*flooor;
-	int			*rooof;
+	int			*floor;
+	int			*roof;
 	char		*addr;
 }				t_img;
 
@@ -70,7 +68,7 @@ typedef struct s_vars
 	int			*size_line;
 	long double	pi;
 	t_pasp		pos_p;
-	t_img		img;
+	t_img		*img;
 }				t_vars;
 
 //---- Parsing ---//

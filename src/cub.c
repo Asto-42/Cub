@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/22 14:05:07 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:37:25 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,27 @@ int	ft_key_hook_2(t_vars *vars)
 	return (1);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	if (!envp)
-	{
-		printf("Error ENV\n");
-		return (1);
-	}
-	(void)argc;
-	// if (argc < 2 || (argc != 2 || ft_check_format_fd(argv[1]) == 0))
-	// {
-	// 	printf("ERROR ARG\n");
-	// 	return (1);
-	// }
-	// if (ft_extract_map_for_parse(argv[1]) == 0)
-	// {
-	// 	printf("ERROR MAP\n");
-	// 	return (1);
-	// }
-	ft_game(argv[1]);
-	return (0);
-}
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	if (!envp)
+// 	{
+// 		printf("Error ENV\n");
+// 		return (1);
+// 	}
+// 	(void)argc;
+// 	// if (argc < 2 || (argc != 2 || ft_check_format_fd(argv[1]) == 0))
+// 	// {
+// 	// 	printf("ERROR ARG\n");
+// 	// 	return (1);
+// 	// }
+// 	// if (ft_extract_map_for_parse(argv[1]) == 0)
+// 	// {
+// 	// 	printf("ERROR MAP\n");
+// 	// 	return (1);
+// 	// }
+// 	ft_game(argv[1]);
+// 	return (0);
+// }
 
 int	main(int ac, char **av, char **envp)
 {
@@ -87,6 +87,5 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 2 || !av || !envp || !valid_parsing(av[1]))
 		return (printf("Error\nFichier de description invalide\n"), 0);
 	if (!init_game(&game, av[1]))
-		return (0);
-	
+		return (0);	
 }
