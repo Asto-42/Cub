@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/23 16:37:25 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:09:36 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@ int	ft_check_format_fd(char *arg)
 	if (arg[x - 1] == 'b' && arg[x - 2] == 'u' && arg[x - 3] == 'c')
 		return (1);
 	return (0);
-}
-
-void	free_map(char **map)
-{
-	int	x;
-
-	x = 0;
-	while (map[x])
-	{
-		free(map[x]);
-		x++;
-	}
-	free(map);
 }
 
 void	ft_clear_mlx(t_vars *vars)
@@ -84,8 +71,12 @@ int	ft_key_hook_2(t_vars *vars)
 int	main(int ac, char **av, char **envp)
 {
 	t_vars	game;
+
 	if (ac != 2 || !av || !envp || !valid_parsing(av[1]))
 		return (printf("Error\nFichier de description invalide\n"), 0);
 	if (!init_game(&game, av[1]))
-		return (0);	
+		return (0);
+	while (1)
+		;
+	return (free_all(&game), 0);
 }

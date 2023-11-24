@@ -6,29 +6,29 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:48:51 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:03 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:35:12 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-int	ft_strchr(char *s, char c)
-{
-	int	i;
+// int	ft_strchr(char *s, char c)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (1);
-		i++;
-	}
-	if (s[i] == c)
-		return (1);
-	return (0);
-}
+// 	i = 0;
+// 	if (!s)
+// 		return (0);
+// 	while (s[i])
+// 	{
+// 		if (s[i] == c)
+// 			return (1);
+// 		i++;
+// 	}
+// 	if (s[i] == c)
+// 		return (1);
+// 	return (0);
+// }
 
 char	*ft_strjoin(char *s1, char *s2)
 {

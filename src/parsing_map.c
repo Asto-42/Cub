@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:23:31 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:23:57 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:42:18 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int	valid_map(char **file)
 	map = extract_map(file, map, i);
 	if (!map)
 		return (free_map(map), free_map(file), 0);
+	if (!size_min(map))
+		return (free_map(map), free_map(file), 0);
 	if (!is_walled(map))
+		return (free_map(map), free_map(file), 0);
+	if (!flood_fill(map))
 		return (free_map(map), free_map(file), 0);
 	return (free_map(map), 1);
 }
@@ -103,7 +107,9 @@ int	valid_parsing(char *av)
 	file = get_map(av);
 	if (!file)
 		return (0);
-	if (!valid_name(av) || !valid_description(file) || !valid_map(file))
+	if (!valid_name(av))
+		return (free_map(file), 0);
+	if (!valid_description(file) || !valid_map(file))
 		res = 0;
 	if (res == 1)
 		free_map(file);

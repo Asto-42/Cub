@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:13:36 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:25:04 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:33:17 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	longest_line(char **file, int i)
 {
 	int	longest;
 
-	longest = ft_strlen(file[i]);
+	longest = len(file[i]);
 	while (file[i] && contain_wall(file[i]))
 	{
-		if (longest < ft_strlen(file[i]))
-			longest = ft_strlen(file[i]);
+		if (longest < len(file[i]))
+			longest = len(file[i]);
 		i++;
 	}
 	return (longest);

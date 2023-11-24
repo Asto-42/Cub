@@ -6,7 +6,7 @@
 #    By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 11:08:46 by jugingas          #+#    #+#              #
-#    Updated: 2023/11/22 13:38:02 by dberreby         ###   ########.fr        #
+#    Updated: 2023/11/24 20:59:27 by dberreby         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ SRC		=		src/cub.c						\
 				src/ft_game.c					\
 				src/pars_map.c					\
 				src/utils.c						\
-				src/get_next_line_bonus.c		\
-				src/get_next_line_utils_bonus.c	\
 				src/parsing_description.c		\
 				src/parsing_description2.c 		\
 				src/parsing_description3.c 		\
@@ -27,6 +25,11 @@ SRC		=		src/cub.c						\
 				src/create_map.c 				\
 				src/get_next_line.c 			\
 				src/get_next_line_utils.c 		\
+				src/init_game.c					\
+				src/init_game2.c 				\
+				src/init_game3.c 				\
+				src/flood_fill.c				\
+				src/flood_fill2.c
 
 NAME		=	cub3d
 OBJS		=	$(SRC:.c=.o)

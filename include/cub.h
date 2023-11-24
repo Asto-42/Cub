@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/22 21:24:42 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:03:42 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,45 @@ int				space_walled(char **map, int i, int k);
 int				is_walled(char **map);
 int				valid_map(char **file);
 int				valid_parsing(char *av);
+int				fl_line_walled(char *line);
+int				find_start_map(char **file, int *i, int *k);
+int				valid_char(char **file, int i, int k);
+char			**extract_map(char **file, char **map, int i);
+char			**get_map(char *av);
+int				valid_name(char *str);
+int				len(char *str);
+int				contain_wall(char *str);
+int				extract_line(char *map_line, char *file_line, int longest);
+int				longest_line(char **file, int i);
+
+// init game
+int				init_game(t_vars *game, char *filename);
+void			free_all(t_vars *game);
+int				set_var_null(t_vars *game);
+int				contain_texture(char *str);
+int				load_images(t_vars *game, char *str, char dir, int i);
+int				extract_image(t_vars *game, char **file, int i, int k);
+void			put_color_in_struct(t_vars *game, char c, int color, char *nb);
+void			init_extract(char **file, int i, int *k, int *color);
+int				extract_fc(t_vars *game, char **file, int i, int k);
+int				extract_textures(t_vars *game, char **file);
+int				init_mlx(t_vars *game);
+int				init_map(t_vars *game, char **file);
+
+// flood fill
+int				replace_two(char **map, int i, int k);
+int				flood_fill(char **map);
+int				size_min(char **map);
+char			**copy_map(char **map);
+int				find_player(char **map, int *i, int *k);
+int				contain_two(char **map);
+int				find_two(char **map, int *i, int *k);
 
 // GNL dav
 char			*get_line(char *full_line);
 char			*reserve(char *full_line);
 char			*get_full_line(int fd, char *full_line);
 char			*get_next_line(int fd, int flag);
-int				ft_strchr(char *s, char c);
 char			*ft_strjoin(char *s1, char *s2);
 
 #endif

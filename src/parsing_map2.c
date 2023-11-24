@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:12:25 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:24:52 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:33:22 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	extract_line(char *map_line, char *file_line, int longest)
 	return (1);
 }
 
-int	ft_strlen(char *str)
+int	len(char *str)
 {
 	int	i;
 
