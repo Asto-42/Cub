@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/11/24 21:03:42 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:20:17 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				ft_nb_line_empty(char *file);
 void			free_map(char **map);
 void			ft_clear_mlx(t_vars *vars);
 char			*ft_strjoin(char *s1, char *s2);
-void			ft_game(char *file);
+void			ft_game(t_vars *game);
 
 // parsing dav
 int				check_textures(char **map, char **textures, int i, int *k);

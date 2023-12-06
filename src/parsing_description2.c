@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_description2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:08:04 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:53 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "cub.h"
 
 int	is_char_desc(char c, char d)
 {

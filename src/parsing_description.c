@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_description.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:28:17 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:22 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "cub.h"
 
 int	check_textures(char **map, char **textures, int i, int *k)
 {

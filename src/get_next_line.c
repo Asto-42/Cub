@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:48:32 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:12 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "cub.h"
 
 char	*get_line(char *full_line)
 {
