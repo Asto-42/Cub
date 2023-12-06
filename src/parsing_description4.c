@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_description4.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:10:40 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:23:03 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "cub.h"
 
 char	**calloc_textures(void)
 {

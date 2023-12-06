@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 17:48:51 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/23 17:35:12 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:15 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
-
-// int	ft_strchr(char *s, char c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!s)
-// 		return (0);
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c)
-// 			return (1);
-// 		i++;
-// 	}
-// 	if (s[i] == c)
-// 		return (1);
-// 	return (0);
-// }
+#include "cub.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {

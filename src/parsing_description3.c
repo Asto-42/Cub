@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_description3.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:09:45 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:58 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub.h"
+#include "cub.h"
 
 int	check_len_nb(char **map, int i, int *k, int *j)
 {
