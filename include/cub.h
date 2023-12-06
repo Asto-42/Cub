@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/06 17:11:09 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/06 17:39:01 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_vars
 	int			limit_ceil;
 	int			limit_wall;
 	int			limit_screen;
+	int			rgb_floor;
+	int			rgb_ceiling;
 	t_pasp		pos_p;
 	t_img		*img;
 }				t_vars;
@@ -155,5 +157,7 @@ char			*reserve(char *full_line);
 char			*get_full_line(int fd, char *full_line);
 char			*get_next_line(int fd, int flag);
 char			*ft_strjoin(char *s1, char *s2);
+
+int				get_rgb(int *rgb);
 
 #endif
