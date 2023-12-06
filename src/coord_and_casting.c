@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/06 16:05:09 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/06 17:10:04 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	pixel = NULL;
 	if (y < 0 || y > 720 - 1 || x < 0 || x > 1080 - 1)
 		return ;
+	printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
 	pixel = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
 	*(unsigned int *)pixel = color;
 }
@@ -158,6 +159,7 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 	}
 	int	y_pixel = 0;
 	printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
+	printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
 	while (y_pixel < vars->limit_ceil)
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
 	// while (y_pixel < vars->limit_wall)
