@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:26 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/24 20:56:24 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:20:32 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	init_game(t_vars *game, char *filename)
 	if (!extract_textures(game, file))
 		return (free_map(file), free_all(game), 0);
 	if (!init_map(game, file))
+		return (free_map(file), free_all(game), 0);
+	if (!init_all(game))
 		return (free_map(file), free_all(game), 0);
 	return (free_map(file), 1);
 }
