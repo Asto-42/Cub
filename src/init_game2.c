@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:55:00 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/24 20:55:48 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:12:55 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ int	set_var_null(t_vars *game)
 	game->win = NULL;
 	game->map = NULL;
 	game->size_line = NULL;
+	game->pi = M_PI;
 	game->img = malloc(sizeof(t_img));
 	if (!game->img)
 		return (0);
+	game->img->img = NULL;
+	game->img->addr = NULL;
+	game->img->bits_per_pixel = 0;
+	game->img->line_length = 0;
+	game->img->endian = 0;
 	game->img->north_wall = NULL;
 	game->img->south_wall = NULL;
 	game->img->east_wall = NULL;
 	game->img->west_wall = NULL;
-	game->img->addr = NULL;
 	game->img->floor = ft_calloc(4, sizeof(int));
 	if (!game->img->floor)
 		return (free(game->img), 0);
