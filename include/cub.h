@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/04 12:20:17 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/06 17:11:09 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ typedef struct pos_and_sens_player
 
 typedef struct s_img
 {
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 	void		*north_wall;
 	void		*south_wall;
 	void		*east_wall;
 	void		*west_wall;
 	int			*floor;
 	int			*roof;
-	char		*addr;
 }				t_img;
 
 typedef struct s_vars
@@ -67,6 +71,9 @@ typedef struct s_vars
 	int			nb_line_map;
 	int			*size_line;
 	long double	pi;
+	int			limit_ceil;
+	int			limit_wall;
+	int			limit_screen;
 	t_pasp		pos_p;
 	t_img		*img;
 }				t_vars;
