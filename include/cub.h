@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 15:28:00 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 15:50:20 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_vars
 	int			rgb_ceiling;
 	t_pasp		pos_p;
 	t_img		*img;
-	t_ray		*raycaster;
+	t_ray		*ray;
 }				t_vars;
 
 //---- Parsing ---//
