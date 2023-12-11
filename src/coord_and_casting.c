@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 17:05:09 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:29:41 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,9 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	pixel = NULL;
 	if (y < 0 || y > 720 - 1 || x < 0 || x > 1080 - 1)
 		return ;
-	pixel = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
+	//printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
+	pixel = (img->addr + (y * img->line_length + x * (img->bpp / 8)));
+	//printf("y = %d\n", y);
 	*(unsigned int *)pixel = color;
 }
 
@@ -138,12 +140,18 @@ int	get_rgb(int *rgb)
 
 int	get_color(t_vars *vars, int x, int y)
 {
-	return (*(int *)(vars->img->addr + (y * vars->img->line_length + x * (vars->img->bits_per_pixel / 8))));
+	return (*(int *)(vars->image->addr + (y * vars->image->line_length + x * (vars->image->bpp / 8))));
 }
 
 void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 {
 	(void)vec;
+
+	vars->image = malloc(sizeof(t_img *));
+		if (!vars->image)
+			return ;
+	vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
+	vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
 	if (dist < 3)
 	{
 		vars->limit_wall = 720;
@@ -157,16 +165,16 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 		vars->limit_screen = 720;
 	}
 	int	y_pixel = 0;
-	while (y_pixel < vars->limit_ceil - 1)
-		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
-	while (y_pixel < vars->limit_wall)
-	{
-		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, vars->ray->tex_x, vars->ray->tex_pos));
-		vars->ray->tex_pos += vars->ray->step;
-	}
+	while (y_pixel < vars->limit_ceil)
+		my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, vars->rgb_ceiling);
+	// while (y_pixel < vars->limit_wall)
+	// {
+	// 	my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, get_color(vars, vars->ray->tex_x, vars->ray->tex_pos));
+	// 	vars->ray->tex_pos += vars->ray->step;
+	// }
 	while (y_pixel < vars->limit_screen)
-		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->floor));
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
+		my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, vars->rgb_floor);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image, 0, 0);
 
 }
 
@@ -196,38 +204,6 @@ void	ft_ray_casting_rework(t_vars *vars)
 		fov += 0.002181662;
 	}
 }
-
-// void	init_cast_img(t_vars *vars)
-// {
-// 	vars->img = ft_malloc(sizeof(t_img) * 1, 0, 0, 0);
-// 	vars->img->mlx_img = mlx_new_image(vars->mlx, vars->window_x, vars->window_y);
-// 	if (!vars->img->mlx_img)
-// 		end_of_prog(vars, 2);
-// 	vars->img->addr = mlx_get_data_addr(vars->img->mlx_img,
-// 			&(vars->img->bpp), &(vars->img->rowlen),
-// 			&(vars->img->end));
-// }
-
-
-// void	ray_cast(t_vars *vars)
-// {
-// 	int		x;
-
-// 	x = 0;
-// 	init_cast_img(vars); // init img et addr
-// 	while (x < vars->window_x)
-// 	{
-// 		set_camera(vars, vars->ray, x); // init fov, radian de depart, pos player de depart
-// 		set_sidedist(vars, vars->ray); // wallah jsais pas
-// 		check_hit(vars, vars->ray); // defini la dist en fonction du hit sur un wall
-// 		draw_textures(vars, vars->ray, x); // define texture to print, set_textures_variables(cub, cub->ray, x); pas compris,
-// 		if (vars->mini->display == 1)
-// 			draw_mini_map(vars, x);
-// 		x++;
-// 	}
-// 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img->mlx_img, 0, 0);
-// 	mlx_destroy_image(cub->mlx, cub->img->mlx_img);
-// }
 
 void	define_pos_player(t_vars *vars)
 {
