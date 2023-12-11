@@ -1,0 +1,11 @@
+[0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/file_does_not_exist[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[0;34m------------------------[0m
+[0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/map_subject.cub[0m
+[0;32mProgram successed[0m
+[0;34m------------------------[0m
+[0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/map_space_end_tab_nl_etc.cub[0m
+[0;32mProgram successed[0m
+[0;34m------------------------[0m

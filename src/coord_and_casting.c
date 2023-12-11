@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coord_and_casting.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/06 17:10:04 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 13:45:11 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,9 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	pixel = NULL;
 	if (y < 0 || y > 720 - 1 || x < 0 || x > 1080 - 1)
 		return ;
-	printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
+	//printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
 	pixel = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
+	//printf("y = %d\n", y);
 	*(unsigned int *)pixel = color;
 }
 
@@ -140,6 +141,34 @@ int	get_rgb(int *rgb)
 // int	get_color(t_game *game, int x, int y, int i)
 // {
 // 	return (*(int *)(game->tex[i].addr + (y * game->tex[i].line_length + x * (game->tex[i].bits_per_pixel / 8))));
+// }
+
+// void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
+// {
+// 	(void)vec;
+// 	if (dist < 3)
+// 	{
+// 		vars->limit_wall = 720;
+// 		vars->limit_ceil = 0;
+// 		vars->limit_screen = 720;
+// 	}
+// 	else
+// 	{
+// 		vars->limit_wall = 1 / dist;
+// 		vars->limit_ceil = 0.5 * (720 - vars->limit_wall);
+// 		vars->limit_screen = 720;
+// 	}
+// 	int	y_pixel = 0;
+// 	// printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
+// 	// printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
+// 	while (y_pixel < vars->limit_ceil)
+// 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
+// 	// while (y_pixel < vars->limit_wall)
+// 	// 	my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->texture));
+// 	// 	raycaster->tex_pos += raycaster->step_tex;
+// 	while (y_pixel < vars->limit_screen)
+// 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->floor));
+
 // }
 
 void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
@@ -158,15 +187,20 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 		vars->limit_screen = 720;
 	}
 	int	y_pixel = 0;
-	printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
-	printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
-	while (y_pixel < vars->limit_ceil)
+	// printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
+	// printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
+	printf("avant boucle y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
+	while (y_pixel < vars->limit_ceil - 1)
+	{
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
+		printf("y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
+	}
 	// while (y_pixel < vars->limit_wall)
 	// 	my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->texture));
 	// 	raycaster->tex_pos += raycaster->step_tex;
 	while (y_pixel < vars->limit_screen)
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->floor));
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 
 }
 
@@ -209,9 +243,9 @@ void	ft_ray_casting_rework(t_vars *vars)
 				vec.x += 0.1;
 		}
 		dist = fc_pythagore(vec.y * vec.y, vec.x * vec.x);
-		printf("before\n");
+		//printf("before\n");
 		create_img_for_print(vars, vec, dist, x_pixel);
-		printf("after\n");
+		//printf("after\n");
 		x_pixel++;
 		fov += 0.002181662;
 	}

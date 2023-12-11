@@ -6,7 +6,7 @@
 #    By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 11:08:46 by jugingas          #+#    #+#              #
-#    Updated: 2023/11/24 20:59:27 by dberreby         ###   ########.fr        #
+#    Updated: 2023/12/11 13:21:41 by dberreby         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC		=		src/cub.c						\
 				src/flood_fill.c				\
 				src/flood_fill2.c
 
-NAME		=	cub3d
+NAME		=	cub3D
 OBJS		=	$(SRC:.c=.o)
 LIBS		=	-Lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -Llibft -llibft
 CC			=	cc

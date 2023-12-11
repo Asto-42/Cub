@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/04 12:31:49 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 13:43:04 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	main(int ac, char **av, char **envp)
 	if (!envp)
 		return (printf("Error ENV\n"), 1);
 	if (ac != 2 || !av || !valid_parsing(av[1]))
-		return (printf("Error\nFichier de description invalide\n"), 0);
+		return (printf("Error\nFichier de description invalide\n"), 2);
 	if (!init_game(&game, av[1]))
-		return (0);
+		return (3);
 	ft_game(&game);
 	return (0);
 }

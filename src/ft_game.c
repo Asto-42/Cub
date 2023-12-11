@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_game.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 16:42:47 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/06 15:48:26 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/06 18:04:41 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_game(t_vars *game)
 	game->nb_line_map = ft_nb_line(game->map);
 	game->size_line = ft_size_line(game->map, game->nb_line_map);
 	define_pos_player(game);
-	printf("ft_game\n");
+	//printf("ft_game\n");
 	ft_ray_casting_rework(game);
 	mlx_hook(game->win, 17, 0, ft_key_hook, game);
 	mlx_hook(game->win, 2, 1L << 0, ft_keymove, game);
