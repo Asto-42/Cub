@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 13:45:11 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:15:05 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,19 +183,22 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 	else
 	{
 		vars->limit_wall = 1 / dist;
+		//vars->limit_wall = 100;
 		vars->limit_ceil = 0.5 * (720 - vars->limit_wall);
 		vars->limit_screen = 720;
 	}
 	int	y_pixel = 0;
 	// printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
 	// printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
-	printf("avant boucle y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
-	while (y_pixel < vars->limit_ceil - 1)
+	//printf("avant boucle y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
+	while (y_pixel < vars->limit_ceil)
 	{
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
-		printf("y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
+		//printf("y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
 	}
-	// while (y_pixel < vars->limit_wall)
+	printf("y = %d limit wall = %d\n", y_pixel, vars->limit_wall);
+	 while (y_pixel < vars->limit_wall)
+		y_pixel++;
 	// 	my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->texture));
 	// 	raycaster->tex_pos += raycaster->step_tex;
 	while (y_pixel < vars->limit_screen)
@@ -228,8 +231,8 @@ void	ft_ray_casting_rework(t_vars *vars)
 	float	dist;
 	t_vector	vec;
 	int	x_pixel = 0;
-	fov = vars->pos_p.rad - (vars->pi / 4);
-	while (fov <= vars->pos_p.rad + (vars->pi / 4))
+	fov = vars->pos_p.rad - (vars->pi / 2);
+	while (fov <= vars->pos_p.rad + (vars->pi / 2))
 	{
 		vec.x = cos(fov);
 		vec.y = sin(fov);
