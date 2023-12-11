@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 15:55:09 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 15:56:20 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	pixel = NULL;
 	if (y < 0 || y > 720 - 1 || x < 0 || x > 1080 - 1)
 		return ;
-	//printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
 	pixel = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
-	//printf("y = %d\n", y);
 	*(unsigned int *)pixel = color;
 }
 
