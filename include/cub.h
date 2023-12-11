@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 15:50:20 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:47:14 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,41 +52,37 @@ typedef struct s_img
 {
 	void		*img;
 	char		*addr;
-	int			bits_per_pixel;
+	int			bpp;
 	int			line_length;
 	int			endian;
-	void		*north_wall;
-	void		*south_wall;
-	void		*east_wall;
-	void		*west_wall;
-	int			*floor;
-	int			*roof;
+	int			tex_width;
+	int			tex_height;
 }				t_img;
 
 typedef struct s_ray
 {
-	double	camera;
-	double	diray_x;
-	double	diray_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	ray_length;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	int		line_height;
-	double	wall_x;
-	int		tex_x;
-	double	step;
-	double	tex_pos;
-	int		draw_start;
-	int		draw_end;
-}			t_ray;
+	double		camera;
+	double		diray_x;
+	double		diray_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		ray_length;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	double		wall_x;
+	int			tex_x;
+	double		step;
+	double		tex_pos;
+	int			draw_start;
+	int			draw_end;
+}				t_ray;
 
 typedef struct s_vars
 {
@@ -99,12 +95,89 @@ typedef struct s_vars
 	int			limit_ceil;
 	int			limit_wall;
 	int			limit_screen;
+	int			*floor;
+	int			*roof;
 	int			rgb_floor;
 	int			rgb_ceiling;
+	t_img		*north_wall;
+	t_img		*south_wall;
+	t_img		*east_wall;
+	t_img		*west_wall;
 	t_pasp		pos_p;
-	t_img		*img;
 	t_ray		*ray;
 }				t_vars;
+
+// typedef struct vector
+// {
+// 	float		x;
+// 	float		y;
+// }				t_vector;
+
+// typedef struct pos_and_sens_player
+// {
+// 	double		x;
+// 	double		y;
+// 	char		sens;
+// 	float		rad;
+// }				t_pasp;
+
+// typedef struct s_img
+// {
+// 	void		*img;
+// 	char		*addr;
+// 	int			bits_per_pixel;
+// 	int			line_length;
+// 	int			endian;
+// 	void		*north_wall;
+// 	void		*south_wall;
+// 	void		*east_wall;
+// 	void		*west_wall;
+// 	int			*floor;
+// 	int			*roof;
+// }				t_img;
+
+// typedef struct s_ray
+// {
+// 	double	camera;
+// 	double	diray_x;
+// 	double	diray_y;
+// 	int		map_x;
+// 	int		map_y;
+// 	double	side_dist_x;
+// 	double	side_dist_y;
+// 	double	delta_dist_x;
+// 	double	delta_dist_y;
+// 	double	ray_length;
+// 	int		step_x;
+// 	int		step_y;
+// 	int		hit;
+// 	int		side;
+// 	int		line_height;
+// 	double	wall_x;
+// 	int		tex_x;
+// 	double	step;
+// 	double	tex_pos;
+// 	int		draw_start;
+// 	int		draw_end;
+// }			t_ray;
+
+// typedef struct s_vars
+// {
+// 	void		*mlx;
+// 	void		*win;
+// 	char		**map;
+// 	int			nb_line_map;
+// 	int			*size_line;
+// 	long double	pi;
+// 	int			limit_ceil;
+// 	int			limit_wall;
+// 	int			limit_screen;
+// 	int			rgb_floor;
+// 	int			rgb_ceiling;
+// 	t_pasp		pos_p;
+// 	t_img		*img;
+// 	t_ray		*ray;
+// }				t_vars;
 
 //---- Parsing ---//
 

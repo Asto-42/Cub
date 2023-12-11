@@ -3,33 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:26 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/11 13:49:13 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:55:22 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
+// void	free_all(t_vars *game)
+// {
+// 	(void) game;
+// 	if (game->img)
+// 	{
+// 		if (game->img->north_wall)
+// 			mlx_destroy_image(game->mlx, game->img->north_wall);
+// 		if (game->img->south_wall)
+// 			mlx_destroy_image(game->mlx, game->img->south_wall);
+// 		if (game->img->east_wall)
+// 			mlx_destroy_image(game->mlx, game->img->east_wall);
+// 		if (game->img->west_wall)
+// 			mlx_destroy_image(game->mlx, game->img->west_wall);
+// 		if (game->img->floor)
+// 			free(game->img->floor);
+// 		if (game->img->roof)
+// 			free(game->img->roof);
+// 		free(game->img);
+// 	}
+// 	if (game->win)
+// 		mlx_destroy_window(game->mlx, game->win);
+// 	if (game->mlx)
+// 	{
+// 		mlx_destroy_display(game->mlx);
+// 		free(game->mlx);
+// 	}
+// 	if (game->map)
+// 		free_map(game->map);
+// }
+
 void	free_all(t_vars *game)
 {
-	if (game->img)
-	{
-		if (game->img->north_wall)
-			mlx_destroy_image(game->mlx, game->img->north_wall);
-		if (game->img->south_wall)
-			mlx_destroy_image(game->mlx, game->img->south_wall);
-		if (game->img->east_wall)
-			mlx_destroy_image(game->mlx, game->img->east_wall);
-		if (game->img->west_wall)
-			mlx_destroy_image(game->mlx, game->img->west_wall);
-		if (game->img->floor)
-			free(game->img->floor);
-		if (game->img->roof)
-			free(game->img->roof);
-		free(game->img);
-	}
+	if (game->north_wall->img)
+		mlx_destroy_image(game->mlx, game->north_wall->img);
+	if (game->south_wall->img)
+		mlx_destroy_image(game->mlx, game->south_wall->img);
+	if (game->east_wall->img)
+		mlx_destroy_image(game->mlx, game->east_wall->img);
+	if (game->west_wall->img)
+		mlx_destroy_image(game->mlx, game->west_wall->img);
+	if (game->floor)
+		free(game->floor);
+	if (game->roof)
+		free(game->roof);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -41,44 +67,10 @@ void	free_all(t_vars *game)
 		free_map(game->map);
 }
 
-// int	init_game(t_game *game, t_data *data)
-// {
-// 	game->mlx = mlx_init();
-// 	if (!game->mlx)
-// 		return (free(game), printf_error(ERROR_MLX));
-// 	game->wind = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, W_TITLE);
-// 	if (game->wind == 0)
-// 		return (destroy_game(game), printf_error(ERROR_MLX));
-// 	game->imgptr = malloc(sizeof(t_img));
-// 	if (!game->imgptr)
-// 		return (destroy_game(game), printf_error(ERROR_MLX));
-// 	game->imgptr->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT);
-// 	if (!game->imgptr->img)
-// 		return (destroy_game(game), printf_error(ERROR_MLX));
-// 	game->imgptr->addr = mlx_get_data_addr(game->imgptr->img, \
-// 	&game->imgptr->bits_per_pixel, \
-// 	&game->imgptr->line_length, &game->imgptr->endian);
-// 	if (set_textures(game, data))
-// 		return (destroy_game(game), printf_error(ERROR_TEXT));
-// 	if (set_persona(game, data))
-// 		return (destroy_game(game), printf_error(ERROR_MALLOC));
-// 	if (set_raycaster(game))
-// 		return (destroy_game(game), printf_error(ERROR_MALLOC));
-// 	game->rgb_floor = get_rgb(data->rgb_floor);
-// 	game->rgb_ceiling = get_rgb(data->rgb_ceiling);
-// 	return (0);
-// }
-
-int init_all(t_vars *game)
+int	init_all(t_vars *game)
 {
-	game->img->img = mlx_new_image(game->mlx, 1080, 720);
-	if (!game->img->img)
-		return (0);
-	game->img->addr = mlx_get_data_addr(game->img->img, \
-	&game->img->bits_per_pixel, \
-	&game->img->line_length, &game->img->endian);
-	game->rgb_floor = get_rgb(game->img->floor);
-	game->rgb_ceiling = get_rgb(game->img->roof);
+	game->rgb_floor = get_rgb(game->floor);
+	game->rgb_ceiling = get_rgb(game->roof);
 	return (1);
 }
 
