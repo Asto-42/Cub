@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:26 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/06 17:40:46 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/11 13:49:13 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int init_all(t_vars *game)
 	&game->img->line_length, &game->img->endian);
 	game->rgb_floor = get_rgb(game->img->floor);
 	game->rgb_ceiling = get_rgb(game->img->roof);
-	return (1);	
+	return (1);
 }
 
 int	init_game(t_vars *game, char *filename)

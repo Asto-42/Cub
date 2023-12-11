@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 14:15:05 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:49:28 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,38 +138,10 @@ int	get_rgb(int *rgb)
 	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
 
-// int	get_color(t_game *game, int x, int y, int i)
-// {
-// 	return (*(int *)(game->tex[i].addr + (y * game->tex[i].line_length + x * (game->tex[i].bits_per_pixel / 8))));
-// }
-
-// void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
-// {
-// 	(void)vec;
-// 	if (dist < 3)
-// 	{
-// 		vars->limit_wall = 720;
-// 		vars->limit_ceil = 0;
-// 		vars->limit_screen = 720;
-// 	}
-// 	else
-// 	{
-// 		vars->limit_wall = 1 / dist;
-// 		vars->limit_ceil = 0.5 * (720 - vars->limit_wall);
-// 		vars->limit_screen = 720;
-// 	}
-// 	int	y_pixel = 0;
-// 	// printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
-// 	// printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
-// 	while (y_pixel < vars->limit_ceil)
-// 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
-// 	// while (y_pixel < vars->limit_wall)
-// 	// 	my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->texture));
-// 	// 	raycaster->tex_pos += raycaster->step_tex;
-// 	while (y_pixel < vars->limit_screen)
-// 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->floor));
-
-// }
+int	get_color(t_vars *vars, int x, int y)
+{
+	return (*(int *)(vars->img->addr + (y * vars->img->line_length + x * (vars->img->bits_per_pixel / 8))));
+}
 
 void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 {
@@ -182,48 +154,21 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 	}
 	else
 	{
-		vars->limit_wall = 1 / dist;
-		//vars->limit_wall = 100;
+		vars->limit_wall = (1 / dist) + 1;
 		vars->limit_ceil = 0.5 * (720 - vars->limit_wall);
 		vars->limit_screen = 720;
 	}
 	int	y_pixel = 0;
-	// printf("dist = %f\ty = %i\tlimit_ceil = %i\n",dist, y_pixel, vars->limit_ceil);
-	// printf("1 : %i\t2 : %i\t 3 : %i\n", vars->img->roof[0], vars->img->roof[1], vars->img->roof[2]);
-	//printf("avant boucle y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
-	while (y_pixel < vars->limit_ceil)
-	{
+	while (y_pixel < vars->limit_ceil - 1)
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->roof));
-		//printf("y = %d ceil = %d\n", y_pixel, vars->limit_ceil);
-	}
-	printf("y = %d limit wall = %d\n", y_pixel, vars->limit_wall);
-	 while (y_pixel < vars->limit_wall)
-		y_pixel++;
-	// 	my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->texture));
-	// 	raycaster->tex_pos += raycaster->step_tex;
+	while (y_pixel < vars->limit_wall)
+		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_color(vars, raycaster->tex_x, raycaster->tex_pos, vars->img));
+		raycaster->tex_pos += raycaster->step_tex;
 	while (y_pixel < vars->limit_screen)
 		my_mlx_pixel_put(vars->img, x_pixel, y_pixel++, get_rgb(vars->img->floor));
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 
 }
-
-// void	draw_colone(t_raycaster *raycaster, t_game *game, int x)
-// {
-// 	int	tmp;
-
-// 	tmp = 0;
-// 	init_spread(game, raycaster);
-// 	while (tmp < raycaster->draw_start)
-// 		my_mlx_pixel_put(game->imgptr, x, tmp++, game->rgb_ceiling);
-// 	while (tmp < raycaster->draw_end)
-// 	{
-// 		my_mlx_pixel_put(game->imgptr, x, tmp, get_color(game, raycaster->tex_x, raycaster->tex_pos, game->texture));
-// 		raycaster->tex_pos += raycaster->step_tex;
-// 		tmp++;
-// 	}
-// 	while (tmp < W_HEIGHT)
-// 		my_mlx_pixel_put(game->imgptr, x, tmp++, game->rgb_floor);
-// }
 
 void	ft_ray_casting_rework(t_vars *vars)
 {
@@ -231,8 +176,8 @@ void	ft_ray_casting_rework(t_vars *vars)
 	float	dist;
 	t_vector	vec;
 	int	x_pixel = 0;
-	fov = vars->pos_p.rad - (vars->pi / 2);
-	while (fov <= vars->pos_p.rad + (vars->pi / 2))
+	fov = vars->pos_p.rad - (vars->pi / 3);
+	while (fov <= vars->pos_p.rad + (vars->pi / 3))
 	{
 		vec.x = cos(fov);
 		vec.y = sin(fov);
@@ -246,46 +191,43 @@ void	ft_ray_casting_rework(t_vars *vars)
 				vec.x += 0.1;
 		}
 		dist = fc_pythagore(vec.y * vec.y, vec.x * vec.x);
-		//printf("before\n");
 		create_img_for_print(vars, vec, dist, x_pixel);
-		//printf("after\n");
 		x_pixel++;
 		fov += 0.002181662;
 	}
 }
 
-// void	ft_ray_casting(t_vars *vars)
-// {
-// 	float		fov;
-// 	float		dist;
-// 	float		l_y = 0;
-// 	float		l_x = 0;
-// 	t_vector	vec;
+void	init_cast_img(t_vars *vars)
+{
+	vars->img = ft_malloc(sizeof(t_img) * 1, 0, 0, 0);
+	vars->img->mlx_img = mlx_new_image(vars->mlx, vars->window_x, vars->window_y);
+	if (!vars->img->mlx_img)
+		end_of_prog(vars, 2);
+	vars->img->addr = mlx_get_data_addr(vars->img->mlx_img,
+			&(vars->img->bpp), &(vars->img->rowlen),
+			&(vars->img->end));
+}
 
-// 	fov = vars->pos_p.rad - (vars->pi / 2);
-// 	while (fov <= (vars->pos_p.rad + (vars->pi / 2)))
-// 	{
-// 		vec.x = cos(fov);
-// 		vec.y = sin(fov);
-// 		printf("pos_x = %f\tpos_y = %f\nfov = %f\nvec.y = %f\tvec.x = %f\nx^2 + y^2 = %f\n",vars->pos_p.x, vars->pos_p.y, fov,  vec.y, vec.x, vec.x*vec.x + vec.y*vec.y);
-// 		// if (vec.y > 0 && vec.y > 0.01)
-// 		// 	l_y = (next_y(vars, vars->pos_p.y, vars->pos_p.x, vec));
-// 		// else if (vec.y < 0 && vec.y < -0.01)
-// 		// 	l_y = (next_y_2(vars, vars->pos_p.y, vars->pos_p.x, vec));
-// 		// else
-// 		// 	l_y = 0;
-// 		if (vec.x > 0 && vec.x > 0.01)
-// 			l_x = (next_x(vars, vars->pos_p.x, vars->pos_p.y, vec) - 1);
-// 		else if (vec.x < 0 && vec.x < -0.01)
-// 			l_x = (next_x_2(vars, vars->pos_p.x, vars->pos_p.y, vec) - 1);
-// 		else
-// 			l_x = 0;
-// 		dist = fc_pythagore(l_y * l_y, l_x * l_x);
-// 		printf("l_y = %f\nl_x = %f\ndist = %f\n\n", l_y, l_x, dist);
-// 		//create_img_for_print(vars, vec, dist);
-// 		fov += vars->pi / 18;
-// 	}
-// }
+
+void	ray_cast(t_vars *vars)
+{
+	int		x;
+
+	x = 0;
+	init_cast_img(vars); // init img et addr
+	while (x < vars->window_x)
+	{
+		set_camera(vars, vars->ray, x); // init fov, radian de depart, pos player de depart
+		set_sidedist(vars, vars->ray); // wallah jsais pas
+		check_hit(vars, vars->ray); // defini la dist en fonction du hit sur un wall
+		draw_textures(vars, vars->ray, x); // define texture to print, set_textures_variables(cub, cub->ray, x); pas compris,
+		if (vars->mini->display == 1)
+			draw_mini_map(vars, x);
+		x++;
+	}
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->img->mlx_img, 0, 0);
+	mlx_destroy_image(cub->mlx, cub->img->mlx_img);
+}
 
 void	define_pos_player(t_vars *vars)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/06 17:39:01 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:28:00 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,31 @@ typedef struct s_img
 	int			*roof;
 }				t_img;
 
+typedef struct s_ray
+{
+	double	camera;
+	double	diray_x;
+	double	diray_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	ray_length;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	double	wall_x;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+	int		draw_start;
+	int		draw_end;
+}			t_ray;
+
 typedef struct s_vars
 {
 	void		*mlx;
@@ -78,6 +103,7 @@ typedef struct s_vars
 	int			rgb_ceiling;
 	t_pasp		pos_p;
 	t_img		*img;
+	t_ray		*raycaster;
 }				t_vars;
 
 //---- Parsing ---//
