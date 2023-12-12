@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/12 18:03:07 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/12 18:28:52 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*pixel;
 
+	printf("start mlxpp\n");
 	pixel = NULL;
-	if (y < 0 || y > (int)vars->win_x - 1 || x < 0 || x > 1080 - 1)
+	if (y < 0 || y > (int)vars->win_x - 1 || x < 0 || x > (int)vars->win_y - 1)
 		return ;
+	printf("mlxpp ...\n");
 	pixel = (vars->image->addr + (y * vars->image->line_length + x * (vars->image->bpp / 8)));
+	printf("mlxpp ...\n");
 	*(unsigned int *)pixel = color;
+	printf("end mlxpp\n");
 }
 
 int	get_rgb(int *rgb)
@@ -30,28 +34,33 @@ int	get_rgb(int *rgb)
 
 int	get_color(t_vars *vars, int x, int y)
 {
-	// (*(int *)(addr + (y * rowlen + x * (bpp / 8))));
-	printf("texture = %d\n", vars->data->texture);
+	printf("start get color\n");
 	if (vars->data->texture == 0)
 	{
+		printf("wall is north\n");
 		int x3 = (y * vars->north_wall->line_length + x * (vars->north_wall->bpp / 8));
 		return (*(int *)((vars->north_wall->addr) + x3));
 	}
 	else if (vars->data->texture == 1)
 	{
+		printf("wall is south\n");
 		int x4 = (y * vars->south_wall->line_length + x * (vars->south_wall->bpp / 8));
 		return (*(int *)((vars->south_wall->addr) + x4));
 	}
 	else if (vars->data->texture == 2)
 	{
+		printf("wall is west\n");
 		int x5 =  (y * vars->west_wall->line_length + x * (vars->west_wall->bpp / 8));
 		return (*(int *)((vars->west_wall->addr) + x5));
 	}
 	else if (vars->data->texture == 3)
 	{
-		int x2 = (y * vars->east_wall->line_length + x * (vars->east_wall->bpp / 8));
-		return (*(int *)((vars->east_wall->addr) + x2));
+		printf("wall is east\n");
+		int x2 = *(int *)((vars->east_wall->addr) + (y * vars->east_wall->line_length + x * (vars->east_wall->bpp / 8)));
+		printf("alive\n");
+		return (x2);
 	}
+	printf("end get color\n");
 	/*if (vars->data->texture == 0)
 		return (*(int *)(vars->north_wall->addr + (y * vars->north->line_length + x * (vars->north->bpp / 8))));
 	else if (vars->data->texture == 1)
@@ -75,8 +84,6 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 		vars->data->texture = 1;
 	else if (vars->ray->side == 1 && vars->ray->diray_y > 0)
 		vars->data->texture = 0;
-	printf("texture ww= %d\n", vars->data->texture);
-
 	vars->ray->wall_x = 0;
 	vars->ray->tex_pos = 0;
 	vars->ray->draw_start = -vars->ray->line_height / 2 + vars->win_y / 2;
@@ -126,7 +133,7 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 			/ 2 + vars->ray->line_height / 2) * vars->ray->step;
 
 	y_pixel= vars->ray->draw_start;
-	while (y_pixel>= 0)
+	while (y_pixel >= 0)
 	{
 		my_mlx_pixel_put(vars, x_pixel, y_pixel, vars->rgb_ceiling);
 		y_pixel--;
@@ -134,11 +141,14 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 	y_pixel= vars->ray->draw_start;
 	while (y_pixel <= vars->ray->draw_end)
 	{
+		printf("appel n %i\n", y_pixel);
 		my_mlx_pixel_put(vars, x_pixel, y_pixel, get_color(vars, vars->ray->tex_x, vars->ray->tex_pos));
+		printf("end call\n");
 		vars->ray->tex_pos += vars->ray->step;
 		y_pixel++;
 	}
-	while (y_pixel< (int)vars->win_y)
+	printf("oui\n");
+	while (y_pixel < (int)vars->win_y)
 	{
 		my_mlx_pixel_put(vars, x_pixel, y_pixel, vars->rgb_floor);
 		y_pixel++;
