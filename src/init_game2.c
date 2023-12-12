@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:55:00 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/11 18:11:59 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:17:59 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,42 @@
 // 	return (1);
 // }
 
-int	set_var_null(t_vars *game)
+int	set_var_null(t_vars *vars)
 {
-	game->mlx = NULL;
-	game->win = NULL;
-	game->map = NULL;
-	game->size_line = NULL;
-	game->pi = M_PI;
-	game->floor = NULL;
-	game->roof = NULL;
-	game->north_wall = NULL;
-	game->south_wall = NULL;
-	game->east_wall = NULL;
-	game->west_wall = NULL;
-	game->north_wall = malloc(sizeof(t_img *));
-	if (!game->north_wall)
+	vars->mlx = NULL;
+	vars->win = NULL;
+	vars->map = NULL;
+	vars->size_line = NULL;
+	vars->pi = M_PI;
+	vars->floor = NULL;
+	vars->roof = NULL;
+	vars->north_wall = NULL;
+	vars->south_wall = NULL;
+	vars->east_wall = NULL;
+	vars->west_wall = NULL;
+	vars->north_wall = malloc(sizeof(t_img));
+	if (!vars->north_wall)
 		return (0);
-	game->south_wall = malloc(sizeof(t_img *));
-	if (!game->south_wall)
+	vars->south_wall = malloc(sizeof(t_img));
+	if (!vars->south_wall)
 		return (0);
-	game->east_wall = malloc(sizeof(t_img *));
-	if (!game->east_wall)
+	vars->east_wall = malloc(sizeof(t_img));
+	if (!vars->east_wall)
 		return (0);
-	game->west_wall = malloc(sizeof(t_img *));
-	if (!game->west_wall)
+	vars->west_wall = malloc(sizeof(t_img));
+	if (!vars->west_wall)
 		return (0);
-	game->floor = ft_calloc(4, sizeof(int));
-	if (!game->floor)
+	vars->data = malloc(sizeof(t_data));
+	if (!vars->data)
 		return (0);
-	game->roof = ft_calloc(4, sizeof(int));
-	if (!game->roof)
+	vars->ray = malloc(sizeof(t_ray));
+	if (!vars->ray)
+		return (0);
+	vars->floor = ft_calloc(4, sizeof(int));
+	if (!vars->floor)
+		return (0);
+	vars->roof = ft_calloc(4, sizeof(int));
+	if (!vars->roof)
 		return (0);
 	return (1);
 }
@@ -87,56 +93,56 @@ int	contain_texture(char *str)
 	return (0);
 }
 
-int	load_images(t_vars *game, char *str, char dir, int i)
+int	load_images(t_vars *vars, char *str, char dir, int i)
 {
 	if (dir == 'N')
 	{
-		game->north_wall->img = mlx_xpm_file_to_image(game->mlx, str, &i, &i);
-		if (!game->north_wall->img)
+		vars->north_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		if (!vars->north_wall->img)
 			return (0);
 	}
 	else if (dir == 'S')
 	{
-		game->south_wall->img = mlx_xpm_file_to_image(game->mlx, str, &i, &i);
-		if (!game->south_wall->img)
+		vars->south_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		if (!vars->south_wall->img)
 			return (0);
 	}
 	if (dir == 'E')
 	{
-		game->east_wall->img = mlx_xpm_file_to_image(game->mlx, str, &i, &i);
-		if (!game->east_wall->img)
+		vars->east_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		if (!vars->east_wall->img)
 			return (0);
 	}
 	if (dir == 'W')
 	{
-		game->west_wall->img = mlx_xpm_file_to_image(game->mlx, str, &i, &i);
-		if (!game->west_wall->img)
+		vars->west_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		if (!vars->west_wall->img)
 			return (0);
 	}
 	return (1);
 }
 
-void	init_tex(t_vars *game, char dir)
+void	init_tex(t_vars *vars, char dir)
 {
 	if (dir == 'N')
-		game->north_wall->addr = mlx_get_data_addr(game->north_wall->img,
-				&game->north_wall->bpp, &game->north_wall->line_length,
-				&game->north_wall->endian);
+		vars->north_wall->addr = mlx_get_data_addr(vars->north_wall->img,
+				&vars->north_wall->bpp, &vars->north_wall->line_length,
+				&vars->north_wall->endian);
 	else if (dir == 'S')
-		game->south_wall->addr = mlx_get_data_addr(game->south_wall->img,
-				&game->south_wall->bpp, &game->south_wall->line_length,
-				&game->south_wall->endian);
+		vars->south_wall->addr = mlx_get_data_addr(vars->south_wall->img,
+				&vars->south_wall->bpp, &vars->south_wall->line_length,
+				&vars->south_wall->endian);
 	else if (dir == 'E')
-		game->east_wall->addr = mlx_get_data_addr(game->east_wall->img,
-				&game->east_wall->bpp, &game->east_wall->line_length,
-				&game->east_wall->endian);
+		vars->east_wall->addr = mlx_get_data_addr(vars->east_wall->img,
+				&vars->east_wall->bpp, &vars->east_wall->line_length,
+				&vars->east_wall->endian);
 	else if (dir == 'W')
-		game->west_wall->addr = mlx_get_data_addr(game->west_wall->img,
-				&game->west_wall->bpp, &game->west_wall->line_length,
-				&game->west_wall->endian);
+		vars->west_wall->addr = mlx_get_data_addr(vars->west_wall->img,
+				&vars->west_wall->bpp, &vars->west_wall->line_length,
+				&vars->west_wall->endian);
 }
 
-int	extract_image(t_vars *game, char **file, int i, int k)
+int	extract_image(t_vars *vars, char **file, int i, int k)
 {
 	int		tmp;
 	char	dir;
@@ -155,16 +161,16 @@ int	extract_image(t_vars *game, char **file, int i, int k)
 	k = tmp;
 	if (!get_image_name(file, str, i, k))
 		return (free(str), 0);
-	if (!load_images(game, str, dir, i))
+	if (!load_images(vars, str, dir, i))
 		return (free(str), 0);
-	init_tex(game, dir);
+	init_tex(vars, dir);
 	return (free(str), 1);
 }
 
-void	put_color_in_struct(t_vars *game, char c, int color, char *nb)
+void	put_color_in_struct(t_vars *vars, char c, int color, char *nb)
 {
 	if (c == 'F')
-		game->floor[color] = atoi(nb);
+		vars->floor[color] = atoi(nb);
 	else if (c == 'C')
-		game->roof[color] = atoi(nb);
+		vars->roof[color] = atoi(nb);
 }

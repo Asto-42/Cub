@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:56:03 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/24 20:56:36 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:32:38 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	init_mlx(t_vars *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
-	game->win = mlx_new_window(game->mlx, 1080, 720,
+	game->win = mlx_new_window(game->mlx, game->win_x, game->win_y,
 			"The adventure of Pjay vol.2");
 	if (!game->mlx)
 		return (0);

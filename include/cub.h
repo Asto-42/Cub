@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 17:14:27 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:02:54 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,26 @@ typedef struct s_ray
 	int			draw_end;
 }				t_ray;
 
+typedef struct s_data
+{
+	double	p_pos_x;
+	double	p_pos_y;
+	double	p_ori_x;
+	double	p_ori_y;
+	double	plane_x;
+	double	plane_y;
+	double	cur_time;
+	double	old_time;
+	int		texture;
+}			t_data;
+
 typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
 	char		**map;
+	unsigned int	win_x;
+	unsigned int	win_y;
 	int			nb_line_map;
 	int			*size_line;
 	long double	pi;
@@ -106,6 +121,7 @@ typedef struct s_vars
 	t_img		*image;
 	t_pasp		pos_p;
 	t_ray		*ray;
+	t_data		*data;
 }				t_vars;
 
 // typedef struct vector
