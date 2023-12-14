@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/12 18:38:39 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/14 15:23:23 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	get_rgb(int *rgb)
 
 int	get_color(t_vars *vars, int x, int y)
 {
+	printf("x = %i\ty = %i\n", x, y);
+	exit(0);
 	if (vars->data->texture == 0)
 		return (*(int *)((vars->north_wall->addr) + (y * vars->north_wall->line_length + x * (vars->north_wall->bpp / 8))));
 	else if (vars->data->texture == 1)
@@ -68,14 +70,24 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 	vars->ray->wall_x -= floor(vars->ray->wall_x);
 	if (vars->data->texture == 0)
 	{
+		printf("1\n");
+		printf("ray->side = %i\tray->diray_x = %f\n", vars->ray->side, vars->ray->diray_x);
+		printf("ray->diray_y = %f\n", vars->ray->diray_y);
 		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
+		{
+			printf("1\n");
 			vars->ray->tex_x = vars->north_wall->tex_width - vars->ray->tex_x - 1;
+		}
 		else
+		{
+			printf("2\nwall_x = %f\ttex_width = %f\ntot = %i\n", vars->ray->wall_x, (double)vars->north_wall->tex_width, (int)(vars->ray->wall_x * (double)vars->north_wall->tex_width));
 			vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->north_wall->tex_width);
+		}
 		vars->ray->step = 1 * vars->north_wall->tex_height / vars->ray->line_height;
 	}
 	else if (vars->data->texture == 1)
 	{
+		printf("2\n");
 		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
 			vars->ray->tex_x = vars->south_wall->tex_width - vars->ray->tex_x - 1;
 		else
@@ -84,6 +96,7 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 	}
 	else if (vars->data->texture == 2)
 	{
+		printf("3\n");
 		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
 			vars->ray->tex_x = vars->west_wall->tex_width - vars->ray->tex_x - 1;
 		else
@@ -92,15 +105,15 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 	}
 	else if (vars->data->texture == 3)
 	{
+		printf("4\n");
 		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
 			vars->ray->tex_x = vars->east_wall->tex_width - vars->ray->tex_x - 1;
 		else
 			vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->east_wall->tex_width);
 		vars->ray->step = 1 * vars->east_wall->tex_height / vars->ray->line_height;
 	}
-	vars->ray->tex_pos = (vars->ray->draw_start - vars->win_y
-			/ 2 + vars->ray->line_height / 2) * vars->ray->step;
-
+	printf("draw_start = %i\twin_y = %i\tline_height = %i\tstep = %f\n\ntot = %f\n", vars->ray->draw_start, vars->win_y, vars->ray->line_height, vars->ray->step, (vars->ray->draw_start - vars->win_y / 2 + vars->ray->line_height / 2) * vars->ray->step);
+	vars->ray->tex_pos = (vars->ray->draw_start - vars->win_y / 2 + vars->ray->line_height / 2) * vars->ray->step;
 	y_pixel= vars->ray->draw_start;
 	while (y_pixel >= 0)
 	{
@@ -124,7 +137,7 @@ void	create_img_for_print(t_vars *vars, int x_pixel)
 
 void	set_camera(t_vars *vars, t_ray *ray, int x)
 {
-	ray->camera = 2 * x / vars->win_x - 1;
+	ray->camera = 2 * x / (double)vars->win_x - 1;
 	ray->diray_x = vars->data->p_ori_x + vars->data->plane_x * ray->camera;
 	ray->diray_y = vars->data->p_ori_y + vars->data->plane_y * ray->camera;
 	ray->map_x = (int)vars->pos_p.x;
@@ -191,12 +204,13 @@ void	check_hit(t_vars *vars, t_ray *ray)
 		ray->ray_length = ray->side_dist_y - ray->delta_dist_y;
 	if (ray->ray_length < 0.005)
 		ray->ray_length = 0.005;
+	printf("ray_length = %f\n", ray->ray_length);
 	ray->line_height = vars->win_y / (ray->ray_length);
 }
 
 void	ft_ray_casting_rework(t_vars *vars)
 {
-	int	x_pixel = 0;
+	int	x_pixel = 1;
 
 	vars->image = malloc(sizeof(t_img));
 		if (!vars->image)

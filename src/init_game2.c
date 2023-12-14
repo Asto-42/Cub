@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:55:00 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/12 16:17:59 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/14 15:29:09 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	load_images(t_vars *vars, char *str, char dir, int i)
 {
 	if (dir == 'N')
 	{
+		printf("i = image width and height = %i\n", i);
 		vars->north_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
 		if (!vars->north_wall->img)
 			return (0);
