@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:26 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/12 17:49:39 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/14 17:37:12 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	init_game(t_vars *vars, char *filename)
 {
 	char	**file;
 
-	vars->win_x = 720;
-	vars->win_y = 480;
+	vars->win_x = 1280;
+	vars->win_y = 720;
 	if (!set_var_null(vars))
 		return (0);
 	file = get_map(filename);

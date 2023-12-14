@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:55:00 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/14 15:29:09 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:53:00 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	game->img->img = NULL;
 // 	game->img->addr = NULL;
 // 	game->img->bits_per_pixel = 0;
-// 	game->img->line_length = 0;
+// 	game->img->tex_width = 0;
 // 	game->img->endian = 0;
 // 	game->img->north_wall = NULL;
 // 	game->img->south_wall = NULL;
@@ -95,28 +95,28 @@ int	contain_texture(char *str)
 
 int	load_images(t_vars *vars, char *str, char dir, int i)
 {
+	(void)i;
 	if (dir == 'N')
 	{
-		printf("i = image width and height = %i\n", i);
-		vars->north_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		vars->north_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &vars->north_wall->tex_width, &vars->north_wall->tex_height);
 		if (!vars->north_wall->img)
 			return (0);
 	}
 	else if (dir == 'S')
 	{
-		vars->south_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		vars->south_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &vars->south_wall->tex_width, &vars->south_wall->tex_height);
 		if (!vars->south_wall->img)
 			return (0);
 	}
 	if (dir == 'E')
 	{
-		vars->east_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		vars->east_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &vars->east_wall->tex_width, &vars->east_wall->tex_height);
 		if (!vars->east_wall->img)
 			return (0);
 	}
 	if (dir == 'W')
 	{
-		vars->west_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &i, &i);
+		vars->west_wall->img = mlx_xpm_file_to_image(vars->mlx, str, &vars->west_wall->tex_width, &vars->west_wall->tex_height);
 		if (!vars->west_wall->img)
 			return (0);
 	}
@@ -127,19 +127,19 @@ void	init_tex(t_vars *vars, char dir)
 {
 	if (dir == 'N')
 		vars->north_wall->addr = mlx_get_data_addr(vars->north_wall->img,
-				&vars->north_wall->bpp, &vars->north_wall->line_length,
+				&vars->north_wall->bpp, &vars->north_wall->rowlen,
 				&vars->north_wall->endian);
 	else if (dir == 'S')
 		vars->south_wall->addr = mlx_get_data_addr(vars->south_wall->img,
-				&vars->south_wall->bpp, &vars->south_wall->line_length,
+				&vars->south_wall->bpp, &vars->south_wall->rowlen,
 				&vars->south_wall->endian);
 	else if (dir == 'E')
 		vars->east_wall->addr = mlx_get_data_addr(vars->east_wall->img,
-				&vars->east_wall->bpp, &vars->east_wall->line_length,
+				&vars->east_wall->bpp, &vars->east_wall->rowlen,
 				&vars->east_wall->endian);
 	else if (dir == 'W')
 		vars->west_wall->addr = mlx_get_data_addr(vars->west_wall->img,
-				&vars->west_wall->bpp, &vars->west_wall->line_length,
+				&vars->west_wall->bpp, &vars->west_wall->rowlen,
 				&vars->west_wall->endian);
 }
 

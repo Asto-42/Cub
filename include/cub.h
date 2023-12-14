@@ -6,7 +6,7 @@
 /*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:09:59 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/12 16:02:54 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/14 17:41:46 by jquil            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_img
 	void		*img;
 	char		*addr;
 	int			bpp;
-	int			line_length;
+	int			rowlen;
 	int			endian;
 	int			tex_width;
 	int			tex_height;
@@ -143,7 +143,7 @@ typedef struct s_vars
 // 	void		*img;
 // 	char		*addr;
 // 	int			bits_per_pixel;
-// 	int			line_length;
+// 	int			tex_width;
 // 	int			endian;
 // 	void		*north_wall;
 // 	void		*south_wall;
@@ -198,7 +198,7 @@ typedef struct s_vars
 
 //---- Parsing ---//
 
-void			ft_ray_casting_rework(t_vars *vars);
+int			ft_ray_casting_rework(t_vars *vars);
 int				ft_extract_map_for_parse(char *file);
 int				ft_keymove(int keycode, t_vars *vars);
 int				ft_nb_line(char **map);
