@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_description3.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jquil <jquil@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:09:45 by dberreby          #+#    #+#             */
-/*   Updated: 2023/11/22 15:28:37 by jquil            ###   ########.fr       */
+/*   Updated: 2023/12/18 14:48:26 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,24 @@ int	check_len_nb(char **map, int i, int *k, int *j)
 		if (*j == 4)
 			return (0);
 	}
+	if (map[i][*k] && map[i][*k] != ' ' && map[i][*k] != ',' && map[i][*k] != '\n')
+		return (0);
 	return (1);
 }
+
+// int	skip_space(char **map, int i, int *k, int *nb_tour)
+// {
+// 	while (map[i][*k] && map[i][*k] == ' ')
+// 		(*k)++;
+// 	if (((map[i][*k] != ',') && (*nb_tour <= 1)) || ((map[i][*k] == ',')
+// 			&& (*nb_tour >= 2)))
+// 		return (0);
+// 	(*k)++;
+// 	while (map[i][*k] && map[i][*k] == ' ')
+// 		(*k)++;
+// 	(*nb_tour)++;
+// 	return (1);
+// }
 
 int	skip_space(char **map, int i, int *k, int *nb_tour)
 {
@@ -33,12 +49,15 @@ int	skip_space(char **map, int i, int *k, int *nb_tour)
 	if (((map[i][*k] != ',') && (*nb_tour <= 1)) || ((map[i][*k] == ',')
 			&& (*nb_tour >= 2)))
 		return (0);
+	if (*nb_tour >= 2 && map[i][*k] != '\n')
+		return (0);
 	(*k)++;
 	while (map[i][*k] && map[i][*k] == ' ')
 		(*k)++;
 	(*nb_tour)++;
 	return (1);
 }
+
 
 void	reset_k(char **map, int i, int *k)
 {
@@ -68,6 +87,7 @@ int	valid_fc(char **map, int i, int k)
 		reset_k(map, i, &k);
 		while (j-- > 0)
 			nb[p++] = map[i][k++];
+		//printf("nb = %s\n", nb);
 		if (atoi(nb) < 0 || atoi(nb) > 255 || !skip_space(map, i, &k, &nb_tour))
 			return (free(nb), 0);
 		free(nb);

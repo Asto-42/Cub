@@ -41,8 +41,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_char_3.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_char_4.cub[0m
 Error
@@ -57,8 +59,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_char_6.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_multiple_value_1.cub[0m
 Error
@@ -73,8 +77,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_multiple_value_3.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_C_no_value_10.cub[0m
 Error
@@ -255,8 +261,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_char_3.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_char_4.cub[0m
 Error
@@ -271,8 +279,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_char_6.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_multiple_value_1.cub[0m
 Error
@@ -287,8 +297,10 @@ Fichier de description invalide
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_multiple_value_3.cub[0m
-[0;32mProgram successed[0m
-[31;7mRESULT: Wrong[0m
+Error
+Fichier de description invalide
+[0;31mProgram failed[0m
+[32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ko_F_no_value_10.cub[0m
 Error
@@ -740,5 +752,5 @@ Fichier de description invalide
 [0;31mProgram failed[0m
 [32;7mRESULT: Corrrect[0m
 [0;34m------------------------[0m
-[32;7mTotal of ok: 10/127[0m
-[31;7mTotal of ko: 117/127[0m
+[32;7mTotal of ok: 4/127[0m
+[31;7mTotal of ko: 123/127[0m
