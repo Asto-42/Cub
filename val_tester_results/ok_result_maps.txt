@@ -35,10 +35,8 @@ Fichier de description invalide
 [31;7mRESULT: Wrong[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_all_final_test_5.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_all_fullspace_between_texture.cub[0m
 [0;32mProgram successed[0m
@@ -69,16 +67,12 @@ Fichier de description invalide
 [32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_C_front_zero.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_C_polarity.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_C_space.cub[0m
 [0;32mProgram successed[0m
@@ -115,16 +109,12 @@ Fichier de description invalide
 [31;7mRESULT: Wrong[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_F_front_zero.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_F_polarity.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_F_space.cub[0m
 [0;32mProgram successed[0m
@@ -215,46 +205,32 @@ Fichier de description invalide
 [31;7mRESULT: Wrong[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test2.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test2_no_endnl.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test3.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test4.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test5.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test6.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_test_giant.cub[0m
-Error
-Fichier de description invalide
-[0;31mProgram failed[0m
-[31;7mRESULT: Wrong[0m
+[0;32mProgram successed[0m
+[32;7mRESULT: Correct[0m
 [0;34m------------------------[0m
 [0;34mProgress on : /sgoinfre/goinfre/Perso/vlepille/pub/cub3D_test_maps/ok_WE_direction.cub[0m
 [0;32mProgram successed[0m
@@ -286,5 +262,5 @@ Fichier de description invalide
 [0;31mProgram failed[0m
 [31;7mRESULT: Wrong[0m
 [0;34m------------------------[0m
-[32;7mTotal of ok: 30/58[0m
-[31;7mTotal of ko: 28/58[0m
+[32;7mTotal of ok: 42/58[0m
+[31;7mTotal of ko: 16/58[0m
