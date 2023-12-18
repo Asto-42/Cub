@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 20:55:00 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/11 18:11:59 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:40:14 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ int	set_var_null(t_vars *game)
 	game->south_wall = NULL;
 	game->east_wall = NULL;
 	game->west_wall = NULL;
-	game->north_wall = malloc(sizeof(t_img *));
+	game->north_wall = malloc(sizeof(t_img ));
 	if (!game->north_wall)
 		return (0);
-	game->south_wall = malloc(sizeof(t_img *));
+	game->south_wall = malloc(sizeof(t_img ));
 	if (!game->south_wall)
 		return (0);
-	game->east_wall = malloc(sizeof(t_img *));
+	game->east_wall = malloc(sizeof(t_img ));
 	if (!game->east_wall)
 		return (0);
-	game->west_wall = malloc(sizeof(t_img *));
+	game->west_wall = malloc(sizeof(t_img ));
 	if (!game->west_wall)
 		return (0);
 	game->floor = ft_calloc(4, sizeof(int));
@@ -116,25 +116,25 @@ int	load_images(t_vars *game, char *str, char dir, int i)
 	return (1);
 }
 
-void	init_tex(t_vars *game, char dir)
-{
-	if (dir == 'N')
-		game->north_wall->addr = mlx_get_data_addr(game->north_wall->img,
-				&game->north_wall->bpp, &game->north_wall->line_length,
-				&game->north_wall->endian);
-	else if (dir == 'S')
-		game->south_wall->addr = mlx_get_data_addr(game->south_wall->img,
-				&game->south_wall->bpp, &game->south_wall->line_length,
-				&game->south_wall->endian);
-	else if (dir == 'E')
-		game->east_wall->addr = mlx_get_data_addr(game->east_wall->img,
-				&game->east_wall->bpp, &game->east_wall->line_length,
-				&game->east_wall->endian);
-	else if (dir == 'W')
-		game->west_wall->addr = mlx_get_data_addr(game->west_wall->img,
-				&game->west_wall->bpp, &game->west_wall->line_length,
-				&game->west_wall->endian);
-}
+// void	init_tex(t_vars *game, char dir)
+// {
+// 	if (dir == 'N')
+// 		game->north_wall->addr = mlx_get_data_addr(game->north_wall->img,
+// 				&game->north_wall->bpp, &game->north_wall->line_length,
+// 				&game->north_wall->endian);
+// 	else if (dir == 'S')
+// 		game->south_wall->addr = mlx_get_data_addr(game->south_wall->img,
+// 				&game->south_wall->bpp, &game->south_wall->line_length,
+// 				&game->south_wall->endian);
+// 	else if (dir == 'E')
+// 		game->east_wall->addr = mlx_get_data_addr(game->east_wall->img,
+// 				&game->east_wall->bpp, &game->east_wall->line_length,
+// 				&game->east_wall->endian);
+// 	else if (dir == 'W')
+// 		game->west_wall->addr = mlx_get_data_addr(game->west_wall->img,
+// 				&game->west_wall->bpp, &game->west_wall->line_length,
+// 				&game->west_wall->endian);
+// }
 
 int	extract_image(t_vars *game, char **file, int i, int k)
 {
@@ -157,7 +157,6 @@ int	extract_image(t_vars *game, char **file, int i, int k)
 		return (free(str), 0);
 	if (!load_images(game, str, dir, i))
 		return (free(str), 0);
-	init_tex(game, dir);
 	return (free(str), 1);
 }
 

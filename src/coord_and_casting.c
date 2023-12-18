@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 17:29:41 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:33:34 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,11 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 {
 	(void)vec;
 
-	vars->image = malloc(sizeof(t_img *));
-		if (!vars->image)
-			return ;
-	vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
-	vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
+	// vars->image = malloc(sizeof(t_img ));
+	// 	if (!vars->image)
+	// 		return ;
+	// vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
+	// vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
 	if (dist < 3)
 	{
 		vars->limit_wall = 720;
@@ -174,7 +174,7 @@ void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
 	// }
 	while (y_pixel < vars->limit_screen)
 		my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, vars->rgb_floor);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image, 0, 0);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image->img, 0, 0);
 
 }
 
@@ -185,6 +185,11 @@ void	ft_ray_casting_rework(t_vars *vars)
 	t_vector	vec;
 	int	x_pixel = 0;
 	fov = vars->pos_p.rad - (vars->pi / 3);
+		vars->image = malloc(sizeof(t_img ));
+		if (!vars->image)
+			return ;
+	vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
+	vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
 	while (fov <= vars->pos_p.rad + (vars->pi / 3))
 	{
 		vec.x = cos(fov);

@@ -6,7 +6,7 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:49:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/11 18:03:48 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:40:31 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int	main(int ac, char **av, char **envp)
 		return (printf("Error\nFichier de description invalide\n"), 2);
 	if (!init_game(&game, av[1]))
 		return (3);
-	//ft_game(&game);
+	ft_game(&game);
 	return (0);
 }
