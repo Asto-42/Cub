@@ -6,130 +6,20 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:33:22 by jquil             #+#    #+#             */
-/*   Updated: 2023/12/12 15:33:34 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:56:28 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	next_x(t_vars *vars, int x, int y, t_vector vec)
-{
-	int	param;
-
-	while (x >= 0 && param >= 0)
-	{
-		param = roundf(x + vec.x);
-		if (param < 0 || param > vars->size_line[y])
-			break ;
-		if (vars->map[y][param] == '1')
-		{
-			printf("next_x\ty = %i\tx = %i\n", y, param);
-			return (param - x);
-		}
-		vec.x += 0.1;
-	}
-	return (0);
-}
-
-int	next_x_2(t_vars *vars, int x, int y, t_vector vec)
-{
-	int	param;
-
-	while (x >= 0 && param >= 0)
-	{
-		param = roundf(x + vec.x);
-		if (param < 0 || param > vars->size_line[y])
-			break ;
-		if (vars->map[y][param] == '1')
-		{
-			printf("next_x\ty = %i\tx = %i\n", y, param);
-			return (param - x);
-		}
-		vec.x -= 0.1;
-	}
-	return (0);
-}
-
-int	next_y(t_vars *vars, int y, int x, t_vector vec)
-{
-	int	param;
-
-	while (y >= 0 || param >= 0)
-	{
-		param = roundf(y + vec.y);
-		if (param < 0 || param > vars->nb_line_map)
-			break ;
-		if (vars->map[param][x] == '1')
-		{
-			printf("next_y\ty = %i\tx = %i\n", param, x);
-			return (y - param);
-		}
-		vec.y -= 0.1;
-	}
-	return (0);
-}
-
-int	next_y_2(t_vars *vars, int y, int x, t_vector vec)
-{
-	int	param;
-
-	while (y >= 0 && param >= 0)
-	{
-		param = roundf(y + vec.y);
-		if (param < 0 || param > vars->nb_line_map)
-			break ;
-		if (vars->map[param][x] == '1')
-		{
-			printf("next_y\ty = %i\tx = %i\n", param, x);
-			return (y - param);
-		}
-		vec.y += 0.1;
-	}
-	return (0);
-}
-
-void	print_ground_and_roof(t_vars *vars)
-{
-	int	x;
-	int	y;
-	//unsigned int	color;
-
-	x = -1;
-	y = -1;
-	while (++y <= 360)
-	{
-		while (++x <= 1080)
-			mlx_pixel_put(vars->mlx, vars->win, x, y, 720); //conv char to int avec une somme a faire
-		x = -1;
-	}
-	y--;
-	while (++y <= 720)
-	{
-		while (++x < 1080)
-			mlx_pixel_put(vars->mlx, vars->win, x, y, 255);
-		x = -1;
-	}
-}
-
-float	fc_pythagore(float a, float b)
-{
-	float	res;
-
-	res = a + b;
-	res = pow(res , (0.5));
-	return (res);
-}
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*pixel;
 
 	pixel = NULL;
-	if (y < 0 || y > 720 - 1 || x < 0 || x > 1080 - 1)
+	if (y < 0 || y > (int)vars->win_y - 1 || x < 0 || x > (int)vars->win_x - 1)
 		return ;
-	//printf("line_l = %i\nbits = %i\n", img->line_length, img->bits_per_pixel);
-	pixel = (img->addr + (y * img->line_length + x * (img->bpp / 8)));
-	//printf("y = %d\n", y);
+	pixel = (vars->image->addr + (y * vars->image->rowlen + x * (vars->image->bpp / 8)));
 	*(unsigned int *)pixel = color;
 }
 
@@ -140,73 +30,215 @@ int	get_rgb(int *rgb)
 
 int	get_color(t_vars *vars, int x, int y)
 {
-	return (*(int *)(vars->image->addr + (y * vars->image->line_length + x * (vars->image->bpp / 8))));
+	if (vars->data->texture == 0)
+		return (*(int *)((vars->north_wall->addr) + (y * vars->north_wall->rowlen + x * (vars->north_wall->bpp / 8))));
+	else if (vars->data->texture == 1)
+		return (*(int *)((vars->south_wall->addr) + (y * vars->south_wall->rowlen + x * (vars->south_wall->bpp / 8))));
+	else if (vars->data->texture == 2)
+		return (*(int *)((vars->west_wall->addr) + (y * vars->west_wall->rowlen + x * (vars->west_wall->bpp / 8))));
+	else if (vars->data->texture == 3)
+		return (*(int *)((vars->east_wall->addr) + (y * vars->east_wall->rowlen + x * (vars->east_wall->bpp / 8))));
+	return (0);
 }
 
-void	create_img_for_print(t_vars *vars, t_vector vec, float dist, int x_pixel)
+void	create_img_for_print(t_vars *vars, int x_pixel)
 {
-	(void)vec;
+	int	y_pixel= 0;
 
-	// vars->image = malloc(sizeof(t_img ));
-	// 	if (!vars->image)
-	// 		return ;
-	// vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
-	// vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
-	if (dist < 3)
+	if (vars->ray->side == 0 && vars->ray->diray_x < 0)
+		vars->data->texture = 3;
+	else if (vars->ray->side == 0 && vars->ray->diray_x > 0)
+		vars->data->texture = 2;
+	else if (vars->ray->side == 1 && vars->ray->diray_y < 0)
+		vars->data->texture = 1;
+	else if (vars->ray->side == 1 && vars->ray->diray_y > 0)
+		vars->data->texture = 0;
+	vars->ray->wall_x = 0;
+	vars->ray->tex_pos = 0;
+	vars->ray->draw_start = -vars->ray->line_height / 2 + vars->win_y / 2;
+	if (vars->ray->draw_start < 0 || vars->ray->draw_start > (int)vars->win_y)
+		vars->ray->draw_start = 0;
+	vars->ray->draw_end = vars->ray->line_height / 2 + vars->win_y / 2;
+	if (vars->ray->draw_end >= (int)vars->win_y)
+		vars->ray->draw_end = vars->win_y - 1;
+	if (vars->ray->side == 0)
+		vars->ray->wall_x = vars->data->p_pos_y + vars->ray->ray_length * vars->ray->diray_y;
+	else
+		vars->ray->wall_x = vars->data->p_pos_x + vars->ray->ray_length * vars->ray->diray_x;
+	vars->ray->wall_x -= floor(vars->ray->wall_x);
+	if (vars->data->texture == 0)
 	{
-		vars->limit_wall = 720;
-		vars->limit_ceil = 0;
-		vars->limit_screen = 720;
+		vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->north_wall->tex_width);
+		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
+			vars->ray->tex_x = vars->north_wall->tex_width - vars->ray->tex_x - 1;
+		vars->ray->step = 1 * (double)vars->north_wall->tex_height / vars->ray->line_height;
+	}
+	else if (vars->data->texture == 1)
+	{
+		vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->south_wall->tex_width);
+		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
+			vars->ray->tex_x = vars->south_wall->tex_width - vars->ray->tex_x - 1;
+		vars->ray->step = 1 * (double)vars->south_wall->tex_height / vars->ray->line_height;
+	}
+	else if (vars->data->texture == 2)
+	{
+		vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->west_wall->tex_width);
+		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
+			vars->ray->tex_x = vars->west_wall->tex_width - vars->ray->tex_x - 1;
+		vars->ray->step = 1 * (double)vars->west_wall->tex_height / vars->ray->line_height;
+	}
+	else if (vars->data->texture == 3)
+	{
+		vars->ray->tex_x = (int)(vars->ray->wall_x * (double)vars->east_wall->tex_width);
+		if ((vars->ray->side == 0 && vars->ray->diray_x > 0) || (vars->ray->side == 1 && vars->ray->diray_y < 0))
+			vars->ray->tex_x = vars->east_wall->tex_width - vars->ray->tex_x - 1;
+		vars->ray->step = 1 * (double)vars->east_wall->tex_height / vars->ray->line_height;
+	}
+	vars->ray->tex_pos = (vars->ray->draw_start - vars->win_y / 2 + vars->ray->line_height / 2) * vars->ray->step;
+	y_pixel= vars->ray->draw_start;
+	while (y_pixel >= 0)
+	{
+		my_mlx_pixel_put(vars, x_pixel, y_pixel, vars->rgb_ceiling);
+		y_pixel--;
+	}
+	y_pixel= vars->ray->draw_start;
+	while (y_pixel <= vars->ray->draw_end)
+	{
+		my_mlx_pixel_put(vars, x_pixel, y_pixel, get_color(vars, vars->ray->tex_x, vars->ray->tex_pos));
+		vars->ray->tex_pos += vars->ray->step;
+		y_pixel++;
+	}
+	while (y_pixel < (int)vars->win_y)
+	{
+		my_mlx_pixel_put(vars, x_pixel, y_pixel, vars->rgb_floor);
+		y_pixel++;
+	}
+}
+
+void	set_camera(t_vars *vars, t_ray *ray, int x)
+{
+	ray->camera = 2 * x / (double)vars->win_x - 1;
+	ray->diray_x = vars->data->p_ori_x + vars->data->plane_x * ray->camera;
+	ray->diray_y = vars->data->p_ori_y + vars->data->plane_y * ray->camera;
+	ray->map_x = (int)vars->pos_p.x;
+	ray->map_y = (int)vars->pos_p.y;
+	if (ray->diray_x != 0)
+		ray->delta_dist_x = fabs(1 / ray->diray_x);
+	else
+		ray->delta_dist_x = INT_MAX;
+	if (ray->diray_y != 0)
+		ray->delta_dist_y = fabs(1 / ray->diray_y);
+	else
+		ray->delta_dist_y = INT_MAX;
+}
+
+void	set_sidedist(t_vars *vars)
+{
+	vars->data->p_pos_y = vars->pos_p.y;
+	vars->data->p_pos_x = vars->pos_p.x;
+	if (vars->ray->diray_x < 0)
+	{
+		vars->ray->step_x = -1;
+		vars->ray->side_dist_x = (vars->data->p_pos_x - vars->ray->map_x) * vars->ray->delta_dist_x;
 	}
 	else
 	{
-		vars->limit_wall = (1 / dist) + 1;
-		vars->limit_ceil = 0.5 * (720 - vars->limit_wall);
-		vars->limit_screen = 720;
+		vars->ray->step_x = 1;
+		vars->ray->side_dist_x = (vars->ray->map_x + 1 - vars->data->p_pos_x) * vars->ray->delta_dist_x;
 	}
-	int	y_pixel = 0;
-	while (y_pixel < vars->limit_ceil)
-		my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, vars->rgb_ceiling);
-	// while (y_pixel < vars->limit_wall)
-	// {
-	// 	my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, get_color(vars, vars->ray->tex_x, vars->ray->tex_pos));
-	// 	vars->ray->tex_pos += vars->ray->step;
-	// }
-	while (y_pixel < vars->limit_screen)
-		my_mlx_pixel_put(vars->image, x_pixel, y_pixel++, vars->rgb_floor);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image->img, 0, 0);
-
+	if (vars->ray->diray_y < 0)
+	{
+		vars->ray->step_y = -1;
+		vars->ray->side_dist_y = (vars->data->p_pos_y - vars->ray->map_y) * vars->ray->delta_dist_y;
+	}
+	else
+	{
+		vars->ray->step_y = 1;
+		vars->ray->side_dist_y = (vars->ray->map_y + 1 - vars->data->p_pos_y) * vars->ray->delta_dist_y;
+	}
 }
 
-void	ft_ray_casting_rework(t_vars *vars)
+void	check_hit(t_vars *vars, t_ray *ray)
 {
-	float	fov;
-	float	dist;
-	t_vector	vec;
-	int	x_pixel = 0;
-	fov = vars->pos_p.rad - (vars->pi / 3);
-		vars->image = malloc(sizeof(t_img ));
-		if (!vars->image)
-			return ;
-	vars->image->img = mlx_new_image(vars->mlx, 1080, 720);
-	vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->line_length, &vars->image->endian);
-	while (fov <= vars->pos_p.rad + (vars->pi / 3))
+	ray->hit = 0;
+	while (ray->hit == 0)
 	{
-		vec.x = cos(fov);
-		vec.y = sin(fov);
-		while ((int)roundf(vars->pos_p.x + vec.x) <= vars->size_line[(int)vars->pos_p.y])
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			if (vars->map[(int)(vars->pos_p.y + vec.y)][(int)(vars->pos_p.x + vec.x)] == '1')
-				break ;
-			if (vec.y > 0.1)
-				vec.y += 0.1;
-			if (vec.x > 0.1)
-				vec.x += 0.1;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
 		}
-		dist = fc_pythagore(vec.y * vec.y, vec.x * vec.x);
-		create_img_for_print(vars, vec, dist, x_pixel);
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (vars->map[ray->map_y][ray->map_x] == '1')
+			ray->hit = 1;
+	}
+	if (ray->side == 0)
+		ray->ray_length = ray->side_dist_x - ray->delta_dist_x;
+	else
+		ray->ray_length = ray->side_dist_y - ray->delta_dist_y;
+	if (ray->ray_length < 0.005)
+		ray->ray_length = 0.005;
+	ray->line_height = vars->win_y / (ray->ray_length);
+}
+
+int	ft_ray_casting_rework(t_vars *vars)
+{
+	int	x_pixel = 0;
+
+	vars->image->img = mlx_new_image(vars->mlx, vars->win_x, vars->win_y);
+	vars->image->addr = mlx_get_data_addr(vars->image->img, &vars->image->bpp, &vars->image->rowlen, &vars->image->endian);
+	while (x_pixel < (int)vars->win_x)
+	{
+		set_camera(vars, vars->ray, x_pixel);
+		set_sidedist(vars);
+		check_hit(vars, vars->ray);
+		create_img_for_print(vars, x_pixel);
 		x_pixel++;
-		fov += 0.002181662;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image->img, 0, 0);
+	//mlx_destroy_image(vars->mlx, vars->image);
+	return (1);
+}
+
+void	init_data_game(t_vars *vars, char sens)
+{
+	if (sens == 'N')
+	{
+		vars->pos_p.rad = vars->pi / 2;
+		vars->data->p_ori_x = 0;
+		vars->data->p_ori_y = 1;
+		vars->data->plane_x = 0.66;
+		vars->data->plane_y = 0;
+	}
+	else if (sens == 'S')
+	{
+		vars->pos_p.rad = (3 * vars->pi) / 2;
+		vars->data->p_ori_x = 0;
+		vars->data->p_ori_y = -1;
+		vars->data->plane_x = -0.66;
+		vars->data->plane_y = 0;
+	}
+	else if (sens == 'W')
+	{
+		vars->pos_p.rad = vars->pi;
+		vars->data->p_ori_x = -1;
+		vars->data->p_ori_y = 0;
+		vars->data->plane_x = 0;
+		vars->data->plane_y = -0.66;
+	}
+	else if (sens == 'E')
+	{
+		vars->pos_p.rad = 0;
+		vars->data->p_ori_x = 1;
+		vars->data->p_ori_y = 0;
+		vars->data->plane_x = 0;
+		vars->data->plane_y = 0.66;
 	}
 }
 
@@ -223,18 +255,13 @@ void	define_pos_player(t_vars *vars)
 		{
 			if (vars->map[y][x] == 'N' || vars->map[y][x] == 'S' || vars->map[y][x] == 'E' || vars->map[y][x] == 'W')
 			{
-				vars->pos_p.x = x;
-				vars->pos_p.y = y;
+				vars->pos_p.x = x + 0.5;
+				vars->pos_p.y = y + 0.5;
 				vars->pos_p.sens = vars->map[y][x];
 				break;
 			}
 		}
 		x = -1;
 	}
-	if (vars->pos_p.sens == 'N')
-		vars->pos_p.rad = vars->pi / 2;
-	if (vars->pos_p.sens == 'W')
-		vars->pos_p.rad = vars->pi;
-	if (vars->pos_p.sens == 'S')
-		vars->pos_p.rad = (3 * vars->pi) / 2;
+	init_data_game(vars, vars->pos_p.sens);
 }

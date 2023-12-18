@@ -6,111 +6,65 @@
 /*   By: dberreby <dberreby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:26 by dberreby          #+#    #+#             */
-/*   Updated: 2023/12/12 14:40:22 by dberreby         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:56:55 by dberreby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-// void	free_all(t_vars *game)
-// {
-// 	(void) game;
-// 	if (game->img)
-// 	{
-// 		if (game->img->north_wall)
-// 			mlx_destroy_image(game->mlx, game->img->north_wall);
-// 		if (game->img->south_wall)
-// 			mlx_destroy_image(game->mlx, game->img->south_wall);
-// 		if (game->img->east_wall)
-// 			mlx_destroy_image(game->mlx, game->img->east_wall);
-// 		if (game->img->west_wall)
-// 			mlx_destroy_image(game->mlx, game->img->west_wall);
-// 		if (game->img->floor)
-// 			free(game->img->floor);
-// 		if (game->img->roof)
-// 			free(game->img->roof);
-// 		free(game->img);
-// 	}
-// 	if (game->win)
-// 		mlx_destroy_window(game->mlx, game->win);
-// 	if (game->mlx)
-// 	{
-// 		mlx_destroy_display(game->mlx);
-// 		free(game->mlx);
-// 	}
-// 	if (game->map)
-// 		free_map(game->map);
-// }
-
-void	free_all(t_vars *game)
+void	free_all(t_vars *vars)
 {
-	if (game->north_wall->img)
-		mlx_destroy_image(game->mlx, game->north_wall->img);
-	if (game->south_wall->img)
-		mlx_destroy_image(game->mlx, game->south_wall->img);
-	if (game->east_wall->img)
-		mlx_destroy_image(game->mlx, game->east_wall->img);
-	if (game->west_wall->img)
-		mlx_destroy_image(game->mlx, game->west_wall->img);
-	if (game->floor)
-		free(game->floor);
-	if (game->roof)
-		free(game->roof);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
+	if (vars->north_wall->img)
+		mlx_destroy_image(vars->mlx, vars->north_wall->img);
+	if (vars->south_wall->img)
+		mlx_destroy_image(vars->mlx, vars->south_wall->img);
+	if (vars->east_wall->img)
+		mlx_destroy_image(vars->mlx, vars->east_wall->img);
+	if (vars->west_wall->img)
+		mlx_destroy_image(vars->mlx, vars->west_wall->img);
+	if (vars->floor)
+		free(vars->floor);
+	if (vars->roof)
+		free(vars->roof);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->mlx)
 	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
+		mlx_destroy_display(vars->mlx);
+		free(vars->mlx);
 	}
-	if (game->map)
-		free_map(game->map);
+	if (vars->map)
+		free_map(vars->map);
 }
 
-int	init_all(t_vars *game)
+int	init_all(t_vars *vars)
 {
-	game->rgb_floor = get_rgb(game->floor);
-	game->rgb_ceiling = get_rgb(game->roof);
+	vars->rgb_floor = get_rgb(vars->floor);
+	vars->rgb_ceiling = get_rgb(vars->roof);
+	vars->data->cur_time = 0;
+	vars->data->old_time = 0;
+	vars->data->texture = 0;
 	return (1);
 }
 
-void	init_tex(t_vars *game)
-{
-	game->north_wall->addr = mlx_get_data_addr(game->north_wall->img,
-												&game->north_wall->bpp,
-												&game->north_wall->line_length,
-												&game->north_wall->endian);
-	game->south_wall->addr = mlx_get_data_addr(game->south_wall->img,
-												&game->south_wall->bpp,
-												&game->south_wall->line_length,
-												&game->south_wall->endian);
-	game->east_wall->addr = mlx_get_data_addr(game->east_wall->img,
-												&game->east_wall->bpp,
-												&game->east_wall->line_length,
-												&game->east_wall->endian);
-	game->west_wall->addr = mlx_get_data_addr(game->west_wall->img,
-												&game->west_wall->bpp,
-												&game->west_wall->line_length,
-												&game->west_wall->endian);
-}
-
-int	init_game(t_vars *game, char *filename)
+int	init_game(t_vars *vars, char *filename)
 {
 	char	**file;
 
-	if (!set_var_null(game))
+	vars->win_x = 1280;
+	vars->win_y = 720;
+	if (!set_var_null(vars))
 		return (0);
 	file = get_map(filename);
 	if (!file)
-		return (free_all(game), 0);
-	if (!init_mlx(game))
-		return (free_map(file), free_all(game), 0);
-	if (!extract_textures(game, file))
-		return (free_map(file), free_all(game), 0);
-	init_tex(game);
-	if (!init_map(game, file))
-		return (free_map(file), free_all(game), 0);
-	if (!init_all(game))
-		return (free_map(file), free_all(game), 0);
+		return (free_all(vars), 0);
+	if (!init_mlx(vars))
+		return (free_map(file), free_all(vars), 0);
+	if (!extract_textures(vars, file))
+		return (free_map(file), free_all(vars), 0);
+	if (!init_map(vars, file))
+		return (free_map(file), free_all(vars), 0);
+	if (!init_all(vars))
+		return (free_map(file), free_all(vars), 0);
 	return (free_map(file), 1);
 }
